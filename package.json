@@ -1,0 +1,11 @@
+{
+  "name": "pelias-labels",
+  "version": "1.0.0",
+  "description": "Pelias label generation",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test | tap-dot"
+  },
+  "author": "Mapzen",
+  "license": "MIT"
+}
