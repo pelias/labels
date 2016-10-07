@@ -1,7 +1,7 @@
 {
   "name": "pelias-labels",
   "description": "Pelias label generation",
-  "main": "index.js",
+  "main": "labelGenerator.js",
   "version": "0.0.0-semantic-release",
   "scripts": {
     "test": "node test/test | tap-dot",
