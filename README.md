@@ -31,7 +31,8 @@ The Pelias Labels module is intended to be used a post-processing step that gene
 
 The first example is for an address in New York City.  
 
-```{
+```
+{
   name: '30 West 26th Street',
   house_number: '30',
   street: 'West 26th Street',
@@ -42,25 +43,29 @@ The first example is for an address in New York City.
   region_a: 'NY',
   country: 'United States',
   country_a: 'USA'
-}```
+}
+```
 
 The label uses the name, borough, locality, region, and country, resulting in: `30 West 26th Street, Manhattan, New York City, NY, USA`
 
 This next example is for a city in a dependency of the United States.
 
-```{
+```
+{
   locality: 'San Juan',
   dependency: 'Puerto Rico',
   dependency_a: 'PR',
   country: 'United States',
   country_a: 'USA'
-}```
+}
+```
 
 Addresses and places in dependencies don't normally include the country, resulting in: `San Juan, PR`
 
 The final example is for a neighbourhood in Paris.
 
-```{
+```
+{
   neighbourhood: 'Grange aux Belles Terrage',
   locality: 'Paris',
   county: 'Paris-7E-Arrondissement',
@@ -69,7 +74,8 @@ The final example is for a neighbourhood in Paris.
   macroregion: 'Île-De-France',
   country: 'France',
   country_a: 'FR'
-}```
+}
+```
 
 Regions aren't normally included in France labels, so the label for this would be: `Grange aux Belles Terrage, Paris, France`
 
