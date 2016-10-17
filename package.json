@@ -2,6 +2,9 @@
   "name": "pelias-labels",
   "description": "Pelias label generation",
   "main": "labelGenerator.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "version": "0.0.0-semantic-release",
   "scripts": {
     "test": "node test/test | tap-dot",
