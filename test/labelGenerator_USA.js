@@ -12,7 +12,7 @@ module.exports.tests.interface = function(test, common) {
 module.exports.tests.united_states = function(test, common) {
   test('venue', function(t) {
     var doc = {
-      'name': 'venue name',
+      'name': { 'default': 'venue name' },
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
@@ -33,7 +33,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('localadmin value should be used when there is no locality', function(t) {
     var doc = {
-      'name': 'venue name',
+      'name': { 'default': 'venue name' },
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
@@ -53,7 +53,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('county value should be used when there is no localadmin', function(t) {
     var doc = {
-      'name': 'venue name',
+      'name': { 'default': 'venue name' },
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
@@ -72,7 +72,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('street', function(t) {
     var doc = {
-      'name': 'house number street name',
+      'name': { 'default': 'house number street name' },
       'layer': 'address',
       'housenumber': 'house number',
       'street': 'street name',
@@ -93,7 +93,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('neighbourhood', function(t) {
     var doc = {
-      'name': 'neighbourhood name',
+      'name': { 'default': 'neighbourhood name' },
       'layer': 'neighbourhood',
       'neighbourhood': 'neighbourhood name',
       'locality': 'locality name',
@@ -112,7 +112,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('venue in borough', function(t) {
     var doc = {
-      'name': 'venue name',
+      'name': { 'default': 'venue name' },
       'layer': 'borough',
       'neighbourhood': 'neighbourhood name',
       'borough': 'borough name',
@@ -132,7 +132,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('locality', function(t) {
     var doc = {
-      'name': 'locality name',
+      'name': { 'default': 'locality name' },
       'layer': 'locality',
       'locality': 'locality name',
       'localadmin': 'localadmin name',
@@ -150,7 +150,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('localadmin', function(t) {
     var doc = {
-      'name': 'localadmin name',
+      'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
       'localadmin': 'localadmin name',
       'county': 'county name',
@@ -167,7 +167,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('county', function(t) {
     var doc = {
-      'name': 'county name',
+      'name': { 'default': 'county name' },
       'layer': 'county',
       'county': 'county name',
       'macrocounty': 'macrocounty name',
@@ -183,7 +183,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('macrocounty', function(t) {
     var doc = {
-      'name': 'macrocounty name',
+      'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
       'macrocounty': 'macrocounty name',
       'region_a': 'region abbr',
@@ -198,7 +198,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('region', function(t) {
     var doc = {
-      'name': 'region name',
+      'name': { 'default': 'region name' },
       'layer': 'region',
       'region_a': 'region abbr',
       'region': 'region name',
@@ -212,7 +212,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('macroregion', function(t) {
     var doc = {
-      'name': 'macroregion name',
+      'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
       'macroregion': 'macroregion name',
       'country_a': 'USA',
@@ -224,7 +224,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('country', function(t) {
     var doc = {
-      'name': 'United States',
+      'name': { 'default': 'United States' },
       'layer': 'country',
       'country_a': 'USA',
       'country': 'United States'
@@ -235,7 +235,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('region should be used when region_a is not available', function(t) {
     var doc = {
-      'name': 'locality name',
+      'name': { 'default': 'locality name' },
       'locality': 'locality name',
       'localadmin': 'localadmin name',
       'county': 'county name',
@@ -251,7 +251,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('dependency layer should use full name instead of abbreviation', function(t) {
     var doc = {
-      'name': 'dependency name',
+      'name': { 'default': 'dependency name' },
       'layer': 'dependency',
       'dependency_a': 'dependency abbr',
       'dependency': 'dependency name',
@@ -265,7 +265,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('dependency abbreviation should be used instead of dependency name or country and skip region', function(t) {
     var doc = {
-      'name': 'locality name',
+      'name': { 'default': 'locality name' },
       'locality': 'locality name',
       'localadmin': 'localadmin name',
       'county': 'county name',
@@ -284,7 +284,7 @@ module.exports.tests.united_states = function(test, common) {
 
   test('dependency name should be used instead of country when dep abbr is unavailable and skip region', function(t) {
     var doc = {
-      'name': 'locality name',
+      'name': { 'default': 'locality name' },
       'locality': 'locality name',
       'localadmin': 'localadmin name',
       'county': 'county name',
