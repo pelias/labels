@@ -12,7 +12,7 @@ module.exports.tests.interface = function(test, common) {
 module.exports.tests.canada = function(test, common) {
   test('venue', function(t) {
     var doc = {
-      'name': 'Tim Horton\'s',
+      'name': { 'default': 'Tim Horton\'s'},
       'layer': 'venue',
       'housenumber': '1',
       'street': 'Main St',
@@ -29,7 +29,7 @@ module.exports.tests.canada = function(test, common) {
 
   test('address', function(t) {
     var doc = {
-      'name': '1 Main St',
+      'name': { 'default': '1 Main St'},
       'layer': 'venue',
       'housenumber': '1',
       'street': 'Main St',
@@ -47,7 +47,7 @@ module.exports.tests.canada = function(test, common) {
 module.exports.tests.france = function(test, common) {
   test('eiffel tower', function(t) {
     var doc = {
-      'name': 'Tour Eiffel',
+      'name': { 'default': 'Tour Eiffel'},
       'layer': 'venue',
       'neighbourhood': 'Quartier du Gros-Caillou',
       'locality': 'Paris',
@@ -61,7 +61,7 @@ module.exports.tests.france = function(test, common) {
 
   test('France street address', function(t) {
     var doc = {
-      'name': '74 rue de rivoli',
+      'name': { 'default': '74 rue de rivoli'},
       'layer': 'address',
       'housenumber': '74',
       'street': 'Rue de Rivoli',
@@ -77,7 +77,7 @@ module.exports.tests.france = function(test, common) {
 
   test('France neighbourhood', function(t) {
     var doc = {
-      'name': 'Grange aux Belles Terrage',
+      'name': { 'default': 'Grange aux Belles Terrage'},
       'layer': 'neighbourhood',
       'neighbourhood': 'Grange aux Belles Terrage',
       'locality': 'Paris',
@@ -91,7 +91,7 @@ module.exports.tests.france = function(test, common) {
 
   test('Luxembourg (the city) in Luxembourg', function(t) {
     var doc = {
-      'name': 'Luxembourg',
+      'name': { 'default': 'Luxembourg'},
       'layer': 'locality',
       'locality': 'Luxembourg',
       'country_a': 'LUX',
@@ -107,7 +107,9 @@ module.exports.tests.france = function(test, common) {
 module.exports.tests.name_only = function(test, common) {
   test('name-only results (no admin fields) should not include extraneous comma', function(t) {
     var doc = {
-      'name': 'Result name',
+      'name': {
+        'default': 'Result name'
+      }
     };
     t.equal(generator(doc),'Result name');
     t.end();
