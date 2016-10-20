@@ -16,16 +16,16 @@ module.exports.tests.united_states = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'venue name, locality name, region abbr, USA');
     t.end();
@@ -37,15 +37,15 @@ module.exports.tests.united_states = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'venue name, localadmin name, region abbr, USA');
     t.end();
@@ -57,14 +57,14 @@ module.exports.tests.united_states = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'venue name, county name, region abbr, USA');
     t.end();
@@ -76,16 +76,16 @@ module.exports.tests.united_states = function(test, common) {
       'layer': 'address',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'house number street name, locality name, region abbr, USA');
     t.end();
@@ -95,16 +95,16 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'neighbourhood name' },
       'layer': 'neighbourhood',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region abbr, USA');
     t.end();
@@ -114,17 +114,17 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'venue name' },
       'layer': 'borough',
-      'neighbourhood': 'neighbourhood name',
-      'borough': 'borough name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'neighbourhood': ['neighbourhood name'],
+      'borough': ['borough name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'venue name, borough name, locality name, region abbr, USA');
     t.end();
@@ -134,15 +134,15 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'locality name, region abbr, USA');
     t.end();
@@ -152,14 +152,14 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'localadmin name, region abbr, USA');
     t.end();
@@ -169,13 +169,13 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'county name' },
       'layer': 'county',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'county name, region abbr, USA');
     t.end();
@@ -185,12 +185,12 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'macrocounty name, region abbr, USA');
     t.end();
@@ -200,11 +200,11 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'region name' },
       'layer': 'region',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'region name, USA');
     t.end();
@@ -214,9 +214,9 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'macroregion name, USA');
     t.end();
@@ -226,8 +226,8 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'United States' },
       'layer': 'country',
-      'country_a': 'USA',
-      'country': 'United States'
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'United States');
     t.end();
@@ -236,14 +236,14 @@ module.exports.tests.united_states = function(test, common) {
   test('region should be used when region_a is not available', function(t) {
     var doc = {
       'name': { 'default': 'locality name' },
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'locality name, region name, USA', 'region should be used');
     t.end();
@@ -253,10 +253,10 @@ module.exports.tests.united_states = function(test, common) {
     var doc = {
       'name': { 'default': 'dependency name' },
       'layer': 'dependency',
-      'dependency_a': 'dependency abbr',
-      'dependency': 'dependency name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'dependency_a': ['dependency abbr'],
+      'dependency': ['dependency name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'dependency name', 'dependency should be used');
     t.end();
@@ -266,16 +266,16 @@ module.exports.tests.united_states = function(test, common) {
   test('dependency abbreviation should be used instead of dependency name or country and skip region', function(t) {
     var doc = {
       'name': { 'default': 'locality name' },
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'dependency_a': 'dependency abbr',
-      'dependency': 'dependency name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'dependency_a': ['dependency abbr'],
+      'dependency': ['dependency name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'locality name, dependency abbr', 'dependency_a should be used');
     t.end();
@@ -285,15 +285,15 @@ module.exports.tests.united_states = function(test, common) {
   test('dependency name should be used instead of country when dep abbr is unavailable and skip region', function(t) {
     var doc = {
       'name': { 'default': 'locality name' },
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'dependency': 'dependency name',
-      'country_a': 'USA',
-      'country': 'United States'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'dependency': ['dependency name'],
+      'country_a': ['USA'],
+      'country': ['United States']
     };
     t.equal(generator(doc),'locality name, dependency name', 'dependency should be used');
     t.end();

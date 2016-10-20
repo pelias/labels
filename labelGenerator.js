@@ -19,8 +19,8 @@ function dedupeNameAndFirstLabelElement(labelParts) {
 }
 
 function getSchema(country_a) {
-  if (country_a && country_a.length && schemas[country_a]) {
-    return schemas[country_a];
+  if (!_.isEmpty(schemas[country_a])) {
+    return schemas[country_a[0]];
   }
 
   return schemas.default;
@@ -50,7 +50,7 @@ function isGeonamesOrWhosOnFirst(source) {
 function getInitialLabel(record) {
   if (isRegion(record.layer) &&
       isGeonamesOrWhosOnFirst(record.source) &&
-      isUSAOrCAN(record.country_a)) {
+      isUSAOrCAN(record.country_a[0])) {
     return [];
   }
 
