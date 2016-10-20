@@ -7,7 +7,7 @@ function getFirstProperty(fields) {
       var fieldValue = record[fields[i]];
 
       if (!_.isEmpty(fieldValue)) {
-        return fieldValue;
+        return fieldValue[0];
       }
 
     }
@@ -23,21 +23,21 @@ function getFirstProperty(fields) {
 // 3.  otherwise, the state/province abbreviation should be used, eg: Lancaster, PA, USA and Bruce, ON, CA
 // 4.  if the abbreviation isn't available, use the full state/province name
 function getRegionalValue(record) {
-  if (record.hasOwnProperty('dependency') || record.hasOwnProperty('dependency_a')) {
+  if (!_.isEmpty(record.dependency) || !_.isEmpty(record.dependency_a)) {
     return;
   }
 
-  if ('region' === record.layer && record.region) {
+  if ('region' === record.layer && !_.isEmpty(record.region)) {
     // return full state name when state is the most granular piece of info
-    return record.region;
+    return record.region[0];
 
-  } else if (record.region_a) {
+  } else if (!_.isEmpty(record.region_a)) {
     // otherwise just return the region code when available
-    return record.region_a;
+    return record.region_a[0];
 
-  } else if (record.region) {
+  } else if (!_.isEmpty(record.region)) {
     // return the full name when there's no region code available
-    return record.region;
+    return record.region[0];
 
   }
 
@@ -50,19 +50,19 @@ function getRegionalValue(record) {
 // 4.  use dependency name if no abbreviation, eg - San Juan, Puerto Rico
 // 5.  use country abbreviation, eg - Lancaster, PA, USA
 function getUSADependencyOrCountryValue(record) {
-  if ('dependency' === record.layer && record.hasOwnProperty('dependency')) {
-    return record.dependency;
-  } else if ('country' === record.layer && record.hasOwnProperty('country')) {
-    return record.country;
+  if ('dependency' === record.layer && !_.isEmpty(record.dependency)) {
+    return record.dependency[0];
+  } else if ('country' === record.layer && !_.isEmpty(record.country)) {
+    return record.country[0];
   }
 
-  if (record.hasOwnProperty('dependency_a')) {
-    return record.dependency_a;
-  } else if (record.hasOwnProperty('dependency')) {
-    return record.dependency;
+  if (!_.isEmpty(record.dependency_a)) {
+    return record.dependency_a[0];
+  } else if (!_.isEmpty(record.dependency)) {
+    return record.dependency[0];
   }
 
-  return record.country_a;
+  return record.country_a[0];
 }
 
 module.exports = {

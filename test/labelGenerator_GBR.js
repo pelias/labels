@@ -16,15 +16,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'venue name, locality name, macroregion name, United Kingdom');
     t.end();
@@ -36,14 +36,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'neighbourhood': ['neighbourhood name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'venue name, localadmin name, macroregion name, United Kingdom');
     t.end();
@@ -55,15 +55,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'layer': 'address',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'house number street name, locality name, macroregion name, United Kingdom');
     t.end();
@@ -73,15 +73,15 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'neighbourhood name' },
       'layer': 'neighbourhood',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, macroregion name, United Kingdom');
     t.end();
@@ -91,14 +91,14 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'locality name, macroregion name, United Kingdom');
     t.end();
@@ -108,13 +108,13 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'localadmin name, macroregion name, United Kingdom');
     t.end();
@@ -124,12 +124,12 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'county name' },
       'layer': 'county',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'county name, macroregion name, United Kingdom');
     t.end();
@@ -139,11 +139,11 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'macrocounty name, macroregion name, United Kingdom');
     t.end();
@@ -153,10 +153,10 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'region name' },
       'layer': 'region',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'region name, macroregion name, United Kingdom');
     t.end();
@@ -166,9 +166,9 @@ module.exports.tests.united_kingdom = function(test, common) {
     var doc = {
       'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
-      'macroregion': 'macroregion name',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'macroregion': ['macroregion name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'macroregion name, United Kingdom');
     t.end();
@@ -179,8 +179,8 @@ module.exports.tests.united_kingdom = function(test, common) {
       'name': { 'default': 'United Kingdom' },
       'layer': 'country',
       'postalcode': 'postalcode',
-      'country_a': 'GBR',
-      'country': 'United Kingdom'
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
     };
     t.equal(generator(doc),'United Kingdom');
     t.end();

@@ -16,16 +16,16 @@ module.exports.tests.canada = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'venue name, locality name, region abbr, Canada');
     t.end();
@@ -37,16 +37,16 @@ module.exports.tests.canada = function(test, common) {
       'layer': 'address',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'house number street name, locality name, region abbr, Canada');
     t.end();
@@ -56,16 +56,16 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'neighbourhood name' },
       'layer': 'neighbourhood',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region abbr, Canada');
     t.end();
@@ -75,15 +75,15 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'locality name, region abbr, Canada');
     t.end();
@@ -93,14 +93,14 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'localadmin name, region abbr, Canada');
     t.end();
@@ -110,13 +110,13 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'county name' },
       'layer': 'county',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'county name, region abbr, Canada');
     t.end();
@@ -126,12 +126,12 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
-      'macrocounty': 'macrocounty name',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'macrocounty name, region abbr, Canada');
     t.end();
@@ -141,11 +141,11 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'region name' },
       'layer': 'region',
-      'region_a': 'region abbr',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'region name, Canada');
     t.end();
@@ -155,9 +155,9 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'macroregion name, Canada');
     t.end();
@@ -167,8 +167,8 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'Canada' },
       'layer': 'country',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'Canada');
     t.end();
@@ -178,14 +178,14 @@ module.exports.tests.canada = function(test, common) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'region',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'CAN',
-      'country': 'Canada'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['CAN'],
+      'country': ['Canada']
     };
     t.equal(generator(doc),'locality name, region name, Canada', 'region should be used');
     t.end();

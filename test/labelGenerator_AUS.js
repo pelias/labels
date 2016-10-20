@@ -16,15 +16,15 @@ module.exports.tests.australia = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'venue name, locality name, region name, Australia');
     t.end();
@@ -36,14 +36,14 @@ module.exports.tests.australia = function(test, common) {
       'layer': 'venue',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'neighbourhood': ['neighbourhood name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'venue name, localadmin name, region name, Australia');
     t.end();
@@ -55,15 +55,15 @@ module.exports.tests.australia = function(test, common) {
       'layer': 'address',
       'housenumber': 'house number',
       'street': 'street name',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'house number street name, locality name, region name, Australia');
     t.end();
@@ -73,15 +73,15 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'neighbourhood name' },
       'layer': 'neighbourhood',
-      'neighbourhood': 'neighbourhood name',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'neighbourhood': ['neighbourhood name'],
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region name, Australia');
     t.end();
@@ -91,14 +91,14 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
-      'locality': 'locality name',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'locality name, region name, Australia');
     t.end();
@@ -108,13 +108,13 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
-      'localadmin': 'localadmin name',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'localadmin name, region name, Australia');
     t.end();
@@ -124,12 +124,12 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'county name' },
       'layer': 'county',
-      'county': 'county name',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'county name, region name, Australia');
     t.end();
@@ -139,11 +139,11 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
-      'macrocounty': 'macrocounty name',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'macrocounty name, region name, Australia');
     t.end();
@@ -153,10 +153,10 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'region name' },
       'layer': 'region',
-      'region': 'region name',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'region name, Australia');
     t.end();
@@ -166,9 +166,9 @@ module.exports.tests.australia = function(test, common) {
     var doc = {
       'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
-      'macroregion': 'macroregion name',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'macroregion': ['macroregion name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'macroregion name, Australia');
     t.end();
@@ -179,8 +179,8 @@ module.exports.tests.australia = function(test, common) {
       'name': { 'default': 'Australia' },
       'layer': 'country',
       'postalcode': 'postalcode',
-      'country_a': 'AUS',
-      'country': 'Australia'
+      'country_a': ['AUS'],
+      'country': ['Australia']
     };
     t.equal(generator(doc),'Australia');
     t.end();
