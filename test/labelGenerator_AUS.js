@@ -174,6 +174,19 @@ module.exports.tests.australia = function(test, common) {
     t.end();
   });
 
+  test('dependency', function(t) {
+    var doc = {
+      'name': { 'default': 'dependency name' },
+      'layer': 'country',
+      'postalcode': 'postalcode',
+      'dependency': ['dependency name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
+    };
+    t.equal(generator(doc),'dependency name');
+    t.end();
+  });
+
   test('country', function(t) {
     var doc = {
       'name': { 'default': 'Australia' },
@@ -183,6 +196,24 @@ module.exports.tests.australia = function(test, common) {
       'country': ['Australia']
     };
     t.equal(generator(doc),'Australia');
+    t.end();
+  });
+
+  test('locality with dependency should ignore country', function(t) {
+    var doc = {
+      'name': { 'default': 'locality name' },
+      'layer': 'locality',
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'dependency': ['dependency name'],
+      'country_a': ['AUS'],
+      'country': ['Australia']
+    };
+    t.equal(generator(doc),'locality name, dependency name');
     t.end();
   });
 

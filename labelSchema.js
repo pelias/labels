@@ -68,12 +68,12 @@ function getUSADependencyOrCountryValue(record) {
 module.exports = {
   'default': {
     'local': getFirstProperty(['locality', 'localadmin']),
-    'country': getFirstProperty(['country'])
+    'country': getFirstProperty(['dependency', 'country'])
   },
   'GBR': {
     'local': getFirstProperty(['locality', 'localadmin']),
     'regional': getFirstProperty(['macroregion']),
-    'country': getFirstProperty(['country'])
+    'country': getFirstProperty(['dependency', 'country'])
   },
   'USA': {
     'borough': getFirstProperty(['borough']),
@@ -84,7 +84,7 @@ module.exports = {
   'AUS': {
     'local' : getFirstProperty(['locality', 'localadmin']),
     'regional' : getRegionalValue,
-    'country': getFirstProperty(['country'])
+    'country': getFirstProperty(['dependency', 'country'])
   },
   'CAN': {
     'local': getFirstProperty(['locality']), // no localadmins in CAN

@@ -174,6 +174,19 @@ module.exports.tests.united_kingdom = function(test, common) {
     t.end();
   });
 
+  test('dependency', function(t) {
+    var doc = {
+      'name': { 'default': 'dependency name' },
+      'layer': 'dependency',
+      'postalcode': 'postalcode',
+      'dependency': ['dependency name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
+    };
+    t.equal(generator(doc),'dependency name');
+    t.end();
+  });
+
   test('country', function(t) {
     var doc = {
       'name': { 'default': 'United Kingdom' },
@@ -183,6 +196,24 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['United Kingdom']
     };
     t.equal(generator(doc),'United Kingdom');
+    t.end();
+  });
+
+  test('locality with dependency should ignore country', function(t) {
+    var doc = {
+      'name': { 'default': 'locality name' },
+      'layer': 'locality',
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'dependency': ['dependency name'],
+      'country_a': ['GBR'],
+      'country': ['United Kingdom']
+    };
+    t.equal(generator(doc),'locality name, macroregion name, dependency name');
     t.end();
   });
 
