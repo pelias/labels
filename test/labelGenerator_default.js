@@ -174,6 +174,18 @@ module.exports.tests.default_country = function(test, common) {
     t.end();
   });
 
+  test('dependency', function(t) {
+    var doc = {
+      'name': { 'default': 'dependency name' },
+      'layer': 'dependency',
+      'dependency': ['dependency name'],
+      'country_a': ['country code'],
+      'country': ['hierarchy country name']
+    };
+    t.equal(generator(doc),'dependency name');
+    t.end();
+  });
+
   test('country layer labels should only use the `country` field and not the `name`', function(t) {
     var doc = {
       'name': { 'default': 'source country name' },
@@ -182,6 +194,24 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['hierarchy country name']
     };
     t.equal(generator(doc),'hierarchy country name');
+    t.end();
+  });
+
+  test('locality with dependency should ignore country', function(t) {
+    var doc = {
+      'name': { 'default': 'locality name' },
+      'layer': 'locality',
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'dependency': ['dependency name'],
+      'country_a': ['country code'],
+      'country': ['country name']
+    };
+    t.equal(generator(doc),'locality name, dependency name');
     t.end();
   });
 
