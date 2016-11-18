@@ -1,3 +1,5 @@
+'use strict';
+
 var generator = require('../labelGenerator');
 
 module.exports.tests = {};
@@ -215,6 +217,17 @@ module.exports.tests.default_country = function(test, common) {
     t.end();
   });
 
+  test('region with no country_a handled gracefully', function(t) {
+    const doc = {
+      name: { default: 'region name' },
+      layer: 'region',
+      source: 'whosonfirst',
+      region: ['region name']
+      //note no country_a
+    };
+    t.equal(generator(doc),'region name');
+    t.end();
+  });
 };
 
 module.exports.all = function (tape, common) {

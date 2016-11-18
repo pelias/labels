@@ -46,11 +46,15 @@ function isGeonamesOrWhosOnFirst(source) {
 
 }
 
+function isInUSAOrCAN(record) {
+  return record.country_a && isUSAOrCAN(record.country_a[0]);
+}
+
 // helper function that sets a default label for non-US/CA regions and countries
 function getInitialLabel(record) {
   if (isRegion(record.layer) &&
       isGeonamesOrWhosOnFirst(record.source) &&
-      isUSAOrCAN(record.country_a[0])) {
+      isInUSAOrCAN(record)) {
     return [];
   }
 
