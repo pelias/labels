@@ -29,7 +29,8 @@
     "precommit-hook": "^3.0.0",
     "tap-dot": "^1.0.5",
     "tape": "^4.6.2",
-    "semantic-release": "^6.3.2"
+    "semantic-release": "^6.3.2",
+    "npm-check": "^5.4.0"
   },
   "pre-commit": [
     "lint",
