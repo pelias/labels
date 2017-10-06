@@ -51,55 +51,37 @@ module.exports.tests.united_states = function(test, common) {
   //   t.end();
   // });
 
-  test('address', function(t) {
+  test('address: county value should be used when there is no locality or localadmin', function(t) {
     var doc = {
       'name': { 'default': '123 street name' },
       'layer': 'address',
       'housenumber': '123',
       'street': 'street name',
+      'county': ['county name'],
+      'region': ['region name'],
+      'country_a': ['KOR'],
+      'country': ['South Korea']
+    };
+    t.equal(generator(doc),'South Korea region name county name street name 123');
+    t.end();
+  });
+
+  test('address: localadmin should be used when no locality', function(t) {
+    var doc = {
+      'name': { 'default': 'house number street name' },
+      'layer': 'address',
+      'housenumber': '123',
+      'street': 'street name',
       'neighbourhood': ['neighbourhood name'],
-      'locality': ['locality name'],
       'localadmin': ['localadmin name'],
       'county': ['county name'],
       'region': ['region name'],
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name locality name street name 123');
+    t.equal(generator(doc),'South Korea region name localadmin name street name 123');
     t.end();
   });
-
-  // test('address: county value should be used when there is no locality or localadmin', function(t) {
-  //   var doc = {
-  //     'name': { 'default': '123 street name' },
-  //     'layer': 'address',
-  //     'housenumber': '123',
-  //     'street': 'street name',
-  //     'county': ['county name'],
-  //     'region': ['region name'],
-  //     'country_a': ['KOR'],
-  //     'country': ['South Korea']
-  //   };
-  //   t.equal(generator(doc),'South Korea region name county name street name 123');
-  //   t.end();
-  // });
-  //
-  // test('address: localadmin should be used when no locality', function(t) {
-  //   var doc = {
-  //     'name': { 'default': 'house number street name' },
-  //     'layer': 'address',
-  //     'housenumber': '123',
-  //     'street': 'street name',
-  //     'neighbourhood': ['neighbourhood name'],
-  //     'localadmin': ['localadmin name'],
-  //     'county': ['county name'],
-  //     'region': ['region name'],
-  //     'country_a': ['KOR'],
-  //     'country': ['South Korea']
-  //   };
-  //   t.equal(generator(doc),'South Korea region name locality name street name 123');
-  //   t.end();
-  // });
 
   test('neighbourhood', function(t) {
     var doc = {
@@ -179,6 +161,26 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea');
+    t.end();
+  });
+
+  test('full address', function (t) {
+    var doc = {
+      'layer': 'address',
+      'name': { 'default': '27 모세로' },
+      'label': ['한국 서울 모세로 27'],
+      'county': ['용산구'],
+      'continent': ['아시아'],
+      'housenumber': '27',
+      'postalcode': ['14230'],
+      'region': ['서울'],
+      'country_a': ['KOR'],
+      'neighbourhood': ['구로본동'],
+      'locality': ['서울'],
+      'street': '모세로',
+      'country': ['한국']
+    };
+    t.equal(generator(doc),'한국 서울 서울 모세로 27');
     t.end();
   });
 };
