@@ -106,7 +106,7 @@ module.exports = {
       'country': getFirstProperty(['country']),
       'province': getFirstProperty(['region']),
       'city': getFirstProperty(['county']),
-      'precinct': getFirstProperty(['locality', 'localadmin', 'neighbourhood'])
+      'precinct': getFirstProperty(['locality', 'localadmin'])
     },
     'meta': {
       'separator': ' '
