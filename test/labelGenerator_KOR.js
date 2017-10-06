@@ -79,7 +79,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name localadmin name street name 123');
+    t.equal(generator(doc),'South Korea region name county name localadmin name street name 123');
     t.end();
   });
 
@@ -95,7 +95,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name locality name neighbourhood name');
+    t.equal(generator(doc),'South Korea region name county name locality name neighbourhood name');
     t.end();
   });
 
@@ -110,7 +110,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name locality name');
+    t.equal(generator(doc),'South Korea region name county name locality name');
     t.end();
   });
 
@@ -124,7 +124,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name localadmin name');
+    t.equal(generator(doc),'South Korea region name county name localadmin name');
     t.end();
   });
 
@@ -180,7 +180,7 @@ module.exports.tests.united_states = function(test, common) {
       'street': '모세로',
       'country': ['한국']
     };
-    t.equal(generator(doc),'한국 서울 서울 모세로 27');
+    t.equal(generator(doc),'한국 서울 용산구 서울 모세로 27');
     t.end();
   });
 };

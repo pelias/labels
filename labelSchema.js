@@ -104,8 +104,9 @@ module.exports = {
   'KOR': {
     'valueFunctions': {
       'country': getFirstProperty(['country']),
-      'regional': getFirstProperty(['region']),
-      'local': getFirstProperty(['locality', 'localadmin', 'county'])
+      'province': getFirstProperty(['region']),
+      'city': getFirstProperty(['county']),
+      'precinct': getFirstProperty(['locality', 'localadmin', 'neighbourhood'])
     },
     'meta': {
       'separator': ' '
