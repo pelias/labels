@@ -9,49 +9,28 @@ module.exports.tests.interface = function(test, common) {
   });
 };
 
-module.exports.tests.united_states = function(test, common) {
-  // test('venue', function(t) {
-  //   var doc = {
-  //     'name': { 'default': 'venue name' },
-  //     'layer': 'venue',
-  //     'housenumber': 'house number',
-  //     'street': 'street name',
-  //     'neighbourhood': ['neighbourhood name'],
-  //     'locality': ['locality name'],
-  //     'localadmin': ['localadmin name'],
-  //     'county': ['county name'],
-  //     'macrocounty': ['macrocounty name'],
-  //     'region_a': ['region abbr'],
-  //     'region': ['region name'],
-  //     'macroregion': ['macroregion name'],
-  //     'country_a': ['KOR'],
-  //     'country': ['South Korea']
-  //   };
-  //   t.equal(generator(doc),'venue name, South Korea region name locality name');
-  //   t.end();
-  // });
-  //
-  // test('county value should be used when there is no locality', function(t) {
-  //   var doc = {
-  //     'name': { 'default': 'venue name' },
-  //     'layer': 'venue',
-  //     'housenumber': 'house number',
-  //     'street': 'street name',
-  //     'neighbourhood': ['neighbourhood name'],
-  //     'localadmin': ['localadmin name'],
-  //     'county': ['county name'],
-  //     'macrocounty': ['macrocounty name'],
-  //     'region_a': ['region abbr'],
-  //     'region': ['region name'],
-  //     'macroregion': ['macroregion name'],
-  //     'country_a': ['KOR'],
-  //     'country': ['South Korea']
-  //   };
-  //   t.equal(generator(doc),'venue name, South Korea region name county name');
-  //   t.end();
-  // });
+module.exports.tests.south_korea = function(test, common) {
+  test('venue', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'venue',
+      'housenumber': 'house number',
+      'street': 'street name',
+      'neighbourhood': ['neighbourhood name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['KOR'],
+      'country': ['South Korea']
+    };
+    t.equal(generator(doc),'South Korea region name county name venue name');
+    t.end();
+  });
 
-  test('address: county value should be used when there is no locality or localadmin', function(t) {
+  test('address', function(t) {
     var doc = {
       'name': { 'default': '123 street name' },
       'layer': 'address',
@@ -66,7 +45,7 @@ module.exports.tests.united_states = function(test, common) {
     t.end();
   });
 
-  test('address: localadmin should be used when no locality', function(t) {
+  test('address should always use county even if locality and localadmin are available', function(t) {
     var doc = {
       'name': { 'default': 'house number street name' },
       'layer': 'address',
@@ -79,7 +58,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name county name localadmin name street name 123');
+    t.equal(generator(doc),'South Korea region name county name street name 123');
     t.end();
   });
 
@@ -95,7 +74,7 @@ module.exports.tests.united_states = function(test, common) {
       'country_a': ['KOR'],
       'country': ['South Korea']
     };
-    t.equal(generator(doc),'South Korea region name county name locality name neighbourhood name');
+    t.equal(generator(doc),'South Korea region name county name neighbourhood name');
     t.end();
   });
 
@@ -180,7 +159,7 @@ module.exports.tests.united_states = function(test, common) {
       'street': '모세로',
       'country': ['한국']
     };
-    t.equal(generator(doc),'한국 서울 용산구 서울 모세로 27');
+    t.equal(generator(doc),'한국 서울 용산구 모세로 27');
     t.end();
   });
 };

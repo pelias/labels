@@ -105,8 +105,7 @@ module.exports = {
     'valueFunctions': {
       'country': getFirstProperty(['country']),
       'province': getFirstProperty(['region']),
-      'city': getFirstProperty(['county']),
-      'precinct': getFirstProperty(['locality', 'localadmin'])
+      'city': getFirstProperty(['county'])
     },
     'meta': {
       'separator': ' '
