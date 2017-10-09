@@ -117,7 +117,7 @@ function buildPostfixLabelParts(schema, record) {
     return [];
   }
 
-  let labelParts = [];
+  const labelParts = [];
 
   if (isAddress(record.layer)) {
     if (record.street) {
