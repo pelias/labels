@@ -67,28 +67,48 @@ function getUSADependencyOrCountryValue(record) {
 
 module.exports = {
   'default': {
-    'local': getFirstProperty(['locality', 'localadmin']),
-    'country': getFirstProperty(['dependency', 'country'])
+    'valueFunctions': {
+      'local': getFirstProperty(['locality', 'localadmin']),
+      'country': getFirstProperty(['dependency', 'country'])
+    }
   },
   'GBR': {
-    'local': getFirstProperty(['locality', 'localadmin']),
-    'regional': getFirstProperty(['macroregion']),
-    'country': getFirstProperty(['dependency', 'country'])
+    'valueFunctions': {
+      'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getFirstProperty(['macroregion']),
+      'country': getFirstProperty(['dependency', 'country'])
+    }
   },
   'USA': {
-    'borough': getFirstProperty(['borough']),
-    'local': getFirstProperty(['locality', 'localadmin', 'county']),
-    'regional': getRegionalValue,
-    'country': getUSADependencyOrCountryValue
+    'valueFunctions': {
+      'borough': getFirstProperty(['borough']),
+      'local': getFirstProperty(['locality', 'localadmin', 'county']),
+      'regional': getRegionalValue,
+      'country': getUSADependencyOrCountryValue
+    }
   },
   'AUS': {
-    'local' : getFirstProperty(['locality', 'localadmin']),
-    'regional' : getRegionalValue,
-    'country': getFirstProperty(['dependency', 'country'])
+    'valueFunctions': {
+      'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getRegionalValue,
+      'country': getFirstProperty(['dependency', 'country'])
+    }
   },
   'CAN': {
-    'local': getFirstProperty(['locality']), // no localadmins in CAN
-    'regional': getRegionalValue,
-    'country': getFirstProperty(['country'])
+    'valueFunctions': {
+      'local': getFirstProperty(['locality']), // no localadmins in CAN
+      'regional': getRegionalValue,
+      'country': getFirstProperty(['country'])
+    }
+  },
+  'KOR': {
+    'valueFunctions': {
+      'country': getFirstProperty(['country']),
+      'province': getFirstProperty(['region']),
+      'city': getFirstProperty(['county'])
+    },
+    'meta': {
+      'separator': ' '
+    }
   }
 };
