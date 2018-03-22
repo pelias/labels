@@ -228,6 +228,14 @@ module.exports.tests.default_country = function(test, common) {
     t.equal(generator(doc),'region name');
     t.end();
   });
+
+  test('support name aliases', function(t) {
+    const doc = {
+      name: { default: ['name1','name2'] } // note the array
+    };
+    t.equal(generator(doc),'name1');
+    t.end();
+  });
 };
 
 module.exports.all = function (tape, common) {

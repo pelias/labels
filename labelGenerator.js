@@ -96,6 +96,11 @@ function buildPrefixLabelParts(schema, record) {
     return [];
   }
 
+  // support name aliases
+  if (Array.isArray(record.name.default)) {
+    return record.name.default.slice(0,1);
+  }
+
   return [record.name.default];
 
 }
@@ -129,6 +134,11 @@ function buildPostfixLabelParts(schema, record) {
     labelParts.push(record.housenumber);
 
     return labelParts;
+  }
+
+  // support name aliases
+  if (Array.isArray(record.name.default)) {
+    return record.name.default.slice(0,1);
   }
 
   return [record.name.default];
