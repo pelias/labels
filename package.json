@@ -13,7 +13,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "validate": "npm ls"
   },
-  "author": "Mapzen",
+  "author": "Pelias",
   "license": "MIT",
   "repository": {
     "type": "git",
