@@ -5,12 +5,11 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "version": "0.0.0-semantic-release",
+  "version": "0.0.0-development",
   "scripts": {
     "test": "node test/test | tap-dot",
     "lint": "jshint .",
     "travis": "npm test",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "validate": "npm ls"
   },
   "author": "Pelias",
@@ -34,5 +33,8 @@
     "lint",
     "validate",
     "test"
-  ]
+  ],
+  "release": {
+    "success": []
+  }
 }
