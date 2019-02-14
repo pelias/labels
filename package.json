@@ -3,7 +3,7 @@
   "description": "Pelias label generation",
   "main": "labelGenerator.js",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "version": "0.0.0-development",
   "scripts": {
