@@ -1,5 +1,8 @@
 var _ = require('lodash');
 
+// French Guiana, Guadeloupe, Martinique, Reunion, Mayotte
+const FRA_OVERSEAS = ['GF', 'GP', 'MQ', 'RE', 'YT'];
+
 // find the first field of record that has a non-empty value that's not already in labelParts
 function getFirstProperty(fields) {
   return function(record) {
@@ -65,6 +68,21 @@ function getUSADependencyOrCountryValue(record) {
   return record.country_a[0];
 }
 
+// this function generates the last field of the labels for FRA records
+// 1.  use the region name if the record is a in the French overseas, eg - Saint-Denis, Reunion
+// 2.  use dependency name if not null
+// 3.  use country name, eg - Paris, France
+function getFRACountryValue() {
+  const _overseas = getFirstProperty(['region', 'dependency', 'country']);
+  const _default = getFirstProperty(['dependency', 'country']);
+  return (record) => {
+    if (!_.isEmpty(record.region_a) && _.includes(FRA_OVERSEAS, record.region_a[0])) {
+      return _overseas(record);
+    }
+    return _default(record);
+  };
+}
+
 module.exports = {
   'default': {
     'valueFunctions': {
@@ -109,6 +127,12 @@ module.exports = {
     },
     'meta': {
       'separator': ' '
+    }
+  },
+  'FRA': {
+    'valueFunctions': {
+      'local': getFirstProperty(['locality', 'localadmin']),
+      'country': getFRACountryValue()
     }
   }
 };

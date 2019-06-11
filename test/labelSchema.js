@@ -21,14 +21,16 @@ module.exports.tests.supported_countries = function(test, common) {
     t.notEquals(supported_countries.indexOf('GBR'), -1);
     t.notEquals(supported_countries.indexOf('AUS'), -1);
     t.notEquals(supported_countries.indexOf('KOR'), -1);
+    t.notEquals(supported_countries.indexOf('FRA'), -1);
     t.notEquals(supported_countries.indexOf('default'), -1);
-    t.equals(supported_countries.length, 6);
+    t.equals(supported_countries.length, 7);
 
     t.equals(Object.keys(schemas.USA.valueFunctions).length, 4);
     t.equals(Object.keys(schemas.CAN.valueFunctions).length, 3);
     t.equals(Object.keys(schemas.GBR.valueFunctions).length, 3);
     t.equals(Object.keys(schemas.AUS.valueFunctions).length, 3);
     t.equals(Object.keys(schemas.KOR.valueFunctions).length, 3);
+    t.equals(Object.keys(schemas.FRA.valueFunctions).length, 2);
     t.equals(Object.keys(schemas.default.valueFunctions).length, 2);
 
     t.equals(Object.keys(schemas.KOR.meta).length, 1);
