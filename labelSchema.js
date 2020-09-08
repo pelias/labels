@@ -83,6 +83,59 @@ function getFRACountryValue() {
   };
 }
 
+function isInNYC(record) {
+  const _region_a = getFirstProperty(['region_a'])(record);
+  const _country_a = getFirstProperty(['country_a'])(record);
+  const _locality_a = getFirstProperty(['locality_a'])(record);
+
+  return _country_a === 'USA' && _region_a === 'NY' && _locality_a === 'NYC';
+}
+
+function getUSABoroughValue(record) {
+  // In NYC, the borough is used as the locality name on address lines
+  // (except in Queens, see below), so don't return a borough at all
+  // in NYC if there's a locality value to return
+  if (isInNYC(record) && getUSALocalValue(record)) {
+    // Ignore the borough, it's handled in getUSALocalValue
+    return undefined;
+  }
+
+  return getFirstProperty(['borough'])(record);
+}
+
+// NYC is special for addresses
+// - The borough is used for the locality in addresses
+// - Except in Queens, where ideally the neighbourhood is
+// - Also, 'New York' is the proper locality name for Manhattan
+function getNYCLocalValue(record) {
+  const _default = getFirstProperty(['locality', 'localadmin', 'county'])(record);
+  const _borough = getFirstProperty(['borough'])(record);
+  const _neighbourhood = getFirstProperty(['neighbourhood'])(record);
+  // We still want to return "neighborhood, borough, region_a" when a user searches for a neighborhood
+  // otherwise it looks incomplete, so skip to returning the borough in that case
+  // Otherwise, in Queens only, use the neighborhood for the city in address labels
+  if ('neighbourhood' !== record.layer &&
+    _borough &&
+    _borough.startsWith('Queens') &&
+    _neighbourhood
+  ) {
+    return _neighbourhood;
+  } else {
+    return _borough || _default;
+  }
+}
+
+function getUSALocalValue(record) {
+  const _default = getFirstProperty(['locality', 'localadmin', 'county'])(record);
+
+  // NYC is special for addresses
+  if (isInNYC(record)) {
+    return getNYCLocalValue(record);
+  }
+
+  return _default;
+}
+
 module.exports = {
   'default': {
     'valueFunctions': {
@@ -99,8 +152,8 @@ module.exports = {
   },
   'USA': {
     'valueFunctions': {
-      'borough': getFirstProperty(['borough']),
-      'local': getFirstProperty(['locality', 'localadmin', 'county']),
+      'borough': getUSABoroughValue,
+      'local': getUSALocalValue,
       'regional': getRegionalValue,
       'country': getUSADependencyOrCountryValue
     }

@@ -130,6 +130,132 @@ module.exports.tests.united_states = function(test, common) {
     t.end();
   });
 
+  test('venue in queens', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'borough',
+      'neighbourhood': ['Woodside'],
+      'borough': ['Queens'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Woodside, NY, USA');
+    t.end();
+  });
+
+
+  test('venue in Brooklyn', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'borough',
+      'neighbourhood': ['Williamsburg'],
+      'borough': ['Brooklyn'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Brooklyn, NY, USA');
+    t.end();
+  });
+
+  test('venue in Bronx', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'borough',
+      'neighbourhood': ['Mott Haven'],
+      'borough': ['Bronx'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Bronx, NY, USA');
+    t.end();
+  });
+
+  test('neighbourhood', function(t) {
+    var doc = {
+      'name': { 'default': 'neighbourhood name' },
+      'layer': 'neighbourhood',
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'neighbourhood name, locality name, region abbr, USA');
+    t.end();
+  });
+
+
+  test('neighbourhood in Queens', function(t) {
+    var doc = {
+      'name': { 'default': 'Rego Park' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Rego Park'],
+      'borough': ['Queens'],
+      'locality': ['locality name'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Rego Park, Queens, NY, USA');
+    t.end();
+  });
+
+
+  test('neighbourhood in Brooklyn', function(t) {
+    var doc = {
+      'name': { 'default': 'Williamsburg' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Williamsburg'],
+      'borough': ['Brooklyn'],
+      'locality': ['locality name'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Williamsburg, Brooklyn, NY, USA');
+    t.end();
+  });
+
   test('locality', function(t) {
     var doc = {
       'name': { 'default': 'locality name' },
