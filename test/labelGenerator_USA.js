@@ -113,7 +113,7 @@ module.exports.tests.united_states = function(test, common) {
   test('venue in borough', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
-      'layer': 'borough',
+      'layer': 'venue',
       'neighbourhood': ['neighbourhood name'],
       'borough': ['borough name'],
       'locality': ['locality name'],
@@ -133,7 +133,7 @@ module.exports.tests.united_states = function(test, common) {
   test('venue in queens', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
-      'layer': 'borough',
+      'layer': 'venue',
       'neighbourhood': ['Woodside'],
       'borough': ['Queens'],
       'locality': ['New York'],
@@ -155,7 +155,7 @@ module.exports.tests.united_states = function(test, common) {
   test('venue in Brooklyn', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
-      'layer': 'borough',
+      'layer': 'venue',
       'neighbourhood': ['Williamsburg'],
       'borough': ['Brooklyn'],
       'locality': ['New York'],
@@ -176,7 +176,7 @@ module.exports.tests.united_states = function(test, common) {
   test('venue in Bronx', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
-      'layer': 'borough',
+      'layer': 'venue',
       'neighbourhood': ['Mott Haven'],
       'borough': ['Bronx'],
       'locality': ['New York'],
