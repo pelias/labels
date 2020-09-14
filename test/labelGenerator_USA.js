@@ -151,6 +151,24 @@ module.exports.tests.united_states = function(test, common) {
     t.end();
   });
 
+  test('neighbourhood in queens', function(t) {
+    var doc = {
+      'name': { 'default': 'Astoria' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Astoria'],
+      'borough': ['Queens'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['Queens'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Astoria, Queens, NY, USA');
+    t.end();
+  });
 
   test('venue in Brooklyn', function(t) {
     var doc = {
