@@ -113,7 +113,7 @@ module.exports.tests.united_states = function(test, common) {
   test('venue in borough', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
-      'layer': 'borough',
+      'layer': 'venue',
       'neighbourhood': ['neighbourhood name'],
       'borough': ['borough name'],
       'locality': ['locality name'],
@@ -127,6 +127,188 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, borough name, locality name, region abbr, USA');
+    t.end();
+  });
+
+  test('venue in queens', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'venue',
+      'neighbourhood': ['Woodside'],
+      'borough': ['Queens'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Woodside, NY, USA');
+    t.end();
+  });
+
+  test('neighbourhood in queens', function(t) {
+    var doc = {
+      'name': { 'default': 'Astoria' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Astoria'],
+      'borough': ['Queens'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['Queens'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Astoria, Queens, NY, USA');
+    t.end();
+  });
+
+  test('venue in Brooklyn', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'venue',
+      'neighbourhood': ['Williamsburg'],
+      'borough': ['Brooklyn'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Brooklyn, NY, USA');
+    t.end();
+  });
+
+  test('venue in Bronx', function(t) {
+    var doc = {
+      'name': { 'default': 'venue name' },
+      'layer': 'venue',
+      'neighbourhood': ['Mott Haven'],
+      'borough': ['Bronx'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'venue name, Bronx, NY, USA');
+    t.end();
+  });
+
+  test('venue in Manhattan', function(t) {
+    var doc = {
+      'name': { 'default': 'New York Bakery' },
+      'layer': 'venue',
+      'neighbourhood': ['Midtown'],
+      'borough': ['Manhattan'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['New York'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'New York Bakery, New York, NY, USA');
+    t.end();
+  });
+
+  test('neighbourhood in Manhattan', function(t) {
+    var doc = {
+      'name': { 'default': 'Washington Heights' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Washington Heights'],
+      'borough': ['Manhattan'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['New York'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Washington Heights, Manhattan, New York, NY, USA');
+    t.end();
+  });
+
+  test('neighbourhood', function(t) {
+    var doc = {
+      'name': { 'default': 'neighbourhood name' },
+      'layer': 'neighbourhood',
+      'locality': ['locality name'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['region abbr'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'neighbourhood name, locality name, region abbr, USA');
+    t.end();
+  });
+
+
+  test('neighbourhood in Queens', function(t) {
+    var doc = {
+      'name': { 'default': 'Rego Park' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Rego Park'],
+      'borough': ['Queens'],
+      'locality': ['locality name'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Rego Park, Queens, NY, USA');
+    t.end();
+  });
+
+
+  test('neighbourhood in Brooklyn', function(t) {
+    var doc = {
+      'name': { 'default': 'Williamsburg' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Williamsburg'],
+      'borough': ['Brooklyn'],
+      'locality': ['locality name'],
+      'locality_a': ['NYC'],
+      'localadmin': ['localadmin name'],
+      'county': ['county name'],
+      'macrocounty': ['macrocounty name'],
+      'region_a': ['NY'],
+      'region': ['region name'],
+      'macroregion': ['macroregion name'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Williamsburg, Brooklyn, NY, USA');
     t.end();
   });
 
