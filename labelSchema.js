@@ -120,6 +120,16 @@ function getNYCLocalValue(record) {
     _neighbourhood
   ) {
     return _neighbourhood;
+  } else if (_borough &&
+    _borough.startsWith('Manhattan')
+  ) {
+    // return 'Manhattan, New York, for Manhattan neighbourhoods
+    if (record.layer === 'neighbourhood') {
+      return `${_borough}, ${_default}`;
+    // return only locality for Manhattan venues/addresses
+    } else{
+      return _default;
+    }
   } else {
     return _borough || _default;
   }

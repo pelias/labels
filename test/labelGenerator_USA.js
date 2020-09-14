@@ -212,6 +212,44 @@ module.exports.tests.united_states = function(test, common) {
     t.end();
   });
 
+  test('venue in Manhattan', function(t) {
+    var doc = {
+      'name': { 'default': 'New York Bakery' },
+      'layer': 'venue',
+      'neighbourhood': ['Midtown'],
+      'borough': ['Manhattan'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['New York'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'New York Bakery, New York, NY, USA');
+    t.end();
+  });
+
+  test('neighbourhood in Manhattan', function(t) {
+    var doc = {
+      'name': { 'default': 'Washington Heights' },
+      'layer': 'neighbourhood',
+      'neighbourhood': ['Washington Heights'],
+      'borough': ['Manhattan'],
+      'locality': ['New York'],
+      'locality_a': ['NYC'],
+      'localadmin': ['New York'],
+      'county': ['New York'],
+      'region_a': ['NY'],
+      'region': ['New York'],
+      'country_a': ['USA'],
+      'country': ['United States']
+    };
+    t.equal(generator(doc),'Washington Heights, Manhattan, New York, NY, USA');
+    t.end();
+  });
+
   test('neighbourhood', function(t) {
     var doc = {
       'name': { 'default': 'neighbourhood name' },
