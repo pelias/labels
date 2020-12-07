@@ -197,5 +197,12 @@ module.exports = {
       'local': getFirstProperty(['locality', 'localadmin']),
       'country': getFRACountryValue()
     }
+  },
+  'ITA': {
+    'valueFunctions': {
+      'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getRegionalValue,
+      'country': getFirstProperty(['country'])
+    }
   }
 };

@@ -103,6 +103,26 @@ module.exports.tests.france = function(test, common) {
   });
 
 };
+module.exports.tests.italy = function(test, common) {
+  test('Italian street address', function(t) {
+    var doc = {
+      'name': { 'default': 'Corso Duca Degli Abruzzi 71'},
+      'layer': 'address',
+      'housenumber': '71',
+      'street': ['Corso Duca Degli Abruzzi'],
+      'neighbourhood': ['San Paolo'],
+      'locality': ['Torino'],
+      'region': ['Torino'],
+      'region_a': ['TO'],
+      'country_a': ['ITA'],
+      'country': ['Italia']
+    };
+    t.equal(generator(doc),'Corso Duca Degli Abruzzi 71, Torino, TO, Italia');
+    t.end();
+  });
+
+
+};
 
 module.exports.tests.name_only = function(test, common) {
   test('name-only results (no admin fields) should not include extraneous comma', function(t) {
