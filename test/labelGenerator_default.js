@@ -24,11 +24,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'venue name, locality name, country name');
+    t.equal(generator(doc),'venue name, locality name, region abbrv, country name');
     t.end();
   });
 
@@ -43,11 +44,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'venue name, localadmin name, country name');
+    t.equal(generator(doc),'venue name, localadmin name, region abbrv, country name');
     t.end();
   });
 
@@ -63,11 +65,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'house number street name, locality name, country name');
+    t.equal(generator(doc),'house number street name, locality name, region abbrv, country name');
     t.end();
   });
 
@@ -81,11 +84,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'neighbourhood name, locality name, country name');
+    t.equal(generator(doc),'neighbourhood name, locality name, region abbrv, country name');
     t.end();
   });
 
@@ -98,11 +102,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'locality name, country name');
+    t.equal(generator(doc),'locality name, region abbrv, country name');
     t.end();
   });
 
@@ -114,11 +119,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'localadmin name, country name');
+    t.equal(generator(doc),'localadmin name, region abbrv, country name');
     t.end();
   });
 
@@ -129,11 +135,12 @@ module.exports.tests.default_country = function(test, common) {
       'county': ['county name'],
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'county name, country name');
+    t.equal(generator(doc),'county name, region abbrv, country name');
     t.end();
   });
 
@@ -143,11 +150,12 @@ module.exports.tests.default_country = function(test, common) {
       'layer': 'macrocounty',
       'macrocounty': ['macrocounty name'],
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']
     };
-    t.equal(generator(doc),'macrocounty name, country name');
+    t.equal(generator(doc),'macrocounty name, region abbrv, country name');
     t.end();
   });
 
@@ -156,6 +164,7 @@ module.exports.tests.default_country = function(test, common) {
       'name': { 'default': 'region name' },
       'layer': 'region',
       'region': ['region name'],
+      'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
       'country': ['country name']

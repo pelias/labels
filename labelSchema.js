@@ -46,6 +46,13 @@ function getRegionalValue(record) {
 
 }
 
+// return region_a unless record is a region itself
+function getRegionalAbbreviation(record) {
+  if ('region' !== record.layer && !_.isEmpty(record.region_a)) {
+    return _.first(record.region_a);
+  }
+}
+
 // this function generates the last field of the labels for US records
 // 1.  use dependency name if layer is dependency, eg - Puerto Rico
 // 2.  use country name if layer is country, eg - United States
@@ -150,6 +157,7 @@ module.exports = {
   'default': {
     'valueFunctions': {
       'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getRegionalAbbreviation,
       'country': getFirstProperty(['dependency', 'country'])
     }
   },
