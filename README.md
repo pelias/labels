@@ -2,10 +2,7 @@
 
 # Pelias Labels
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/pelias/labels.svg)](https://greenkeeper.io/)
-
 ![Travis CI Status](https://travis-ci.org/pelias/labels.svg)
-[![Gitter Chat](https://badges.gitter.im/pelias/pelias.svg)](https://gitter.im/pelias/pelias?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Overview
 
@@ -16,8 +13,6 @@ Module that generates labels for Pelias search and geocoding results
 ```bash
 $ npm install pelias-labels
 ```
-
-[![NPM](https://nodei.co/npm/pelias-labels.png?downloads=true&stars=true)](https://nodei.co/npm/pelias-labels)
 
 ## NPM Module
 
