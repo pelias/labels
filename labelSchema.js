@@ -1,4 +1,13 @@
 var _ = require('lodash');
+const removeAccents = require('remove-accents');
+
+// lowercase characters and remove some punctuation
+function normalizeString(str){
+  if (!str) {
+    return '';
+  }
+  return removeAccents(str.toLowerCase().split(/[ ,-]+/).join(' '));
+}
 
 // French Guiana, Guadeloupe, Martinique, Reunion, Mayotte
 const FRA_OVERSEAS = ['GF', 'GP', 'MQ', 'RE', 'YT'];
@@ -41,9 +50,39 @@ function getRegionalValue(record) {
   } else if (!_.isEmpty(record.region)) {
     // return the full name when there's no region code available
     return record.region[0];
+  }
+}
 
+// The same as getRegionalValue above, but only returns a region if the region name
+// is distinct from the locality/localadmin/city name
+// This works best for large cities in countries where the region name/abbr is not _always_ included in the label
+function getUniqueRegionalValue(record) {
+  if (!_.isEmpty(record.dependency) || !_.isEmpty(record.dependency_a)) {
+    return;
   }
 
+  // handle the region value where this record itself is a region
+  if ('region' === record.layer) {
+    if (!_.isEmpty(record.region)) {
+    // return full state name when state is the most granular piece of info
+    return record.region[0];
+    }
+  } else {
+    const localityValue = getFirstProperty(['locality', 'localadmin'])(record);
+
+    if (record.region && normalizeString(localityValue) === normalizeString(record.region[0])) {
+      // skip returning anything when the region and locality name are identical
+      // This handles major cities in their own region like Berlin, Tokyo, Paris, Sao Paulo, etc
+      return;
+    }
+
+    // prefer the region abbreviation, fall back to the region name if no abbreviation
+    if (!_.isEmpty(record.region_a)) {
+      return record.region_a[0];
+    } else if (!_.isEmpty(record.region)) {
+      return record.region[0];
+    }
+  }
 }
 
 // this function generates the last field of the labels for US records
@@ -150,6 +189,7 @@ module.exports = {
   'default': {
     'valueFunctions': {
       'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getUniqueRegionalValue,
       'country': getFirstProperty(['dependency', 'country'])
     }
   },

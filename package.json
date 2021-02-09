@@ -19,7 +19,8 @@
     "url": "https://github.com/pelias/labels.git"
   },
   "dependencies": {
-    "lodash": "^4.16.4"
+    "lodash": "^4.16.4",
+    "remove-accents": "^0.4.2"
   },
   "devDependencies": {
     "difflet": "^1.0.1",
