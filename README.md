@@ -2,7 +2,7 @@
 
 # Pelias Labels
 
-![Travis CI Status](https://travis-ci.org/pelias/labels.svg)
+![Continuous Integration](https://github.com/pelias/labels/workflows/Continuous%20Integration/badge.svg)
 
 ## Overview
 
