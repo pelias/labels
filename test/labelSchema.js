@@ -24,7 +24,6 @@ module.exports.tests.supported_countries = function(test, common) {
     t.notEquals(supported_countries.indexOf('FRA'), -1);
     t.notEquals(supported_countries.indexOf('ITA'), -1);
     t.notEquals(supported_countries.indexOf('default'), -1);
-    t.equals(supported_countries.length, 8);
 
     t.equals(Object.keys(schemas.USA.valueFunctions).length, 4);
     t.equals(Object.keys(schemas.CAN.valueFunctions).length, 3);
