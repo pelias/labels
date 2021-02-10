@@ -144,7 +144,7 @@ module.exports.tests.france = function(test, common) {
     t.end();
   });
 
-  test('National Gallery Singapore', function(t) {
+  test('National Gallery Singapore - WOF data format as of Feb. 2021', function(t) {
     const doc = {
       'name': { 'default': 'National Gallery Singapore'},
       'layer': 'venue',
@@ -155,6 +155,21 @@ module.exports.tests.france = function(test, common) {
       'country': ['Singapore']
     };
     t.equal(generator(doc),'National Gallery Singapore, Singapore');
+    t.end();
+  });
+
+  test('Universal Studios Singapore- glorious future WOF data structure', function(t) {
+    const doc = {
+      'name': { 'default': 'Universal Studios Singapore'},
+      'layer': 'venue',
+      'neighbourhood': ['Sentosa'],
+      'locality': ['Singapore'],
+      'region': ['Central Singapore'],
+      'region_a': ['CS'],
+      'country_a': ['SGP'],
+      'country': ['Singapore']
+    };
+    t.equal(generator(doc),'Universal Studios Singapore, Sentosa, Singapore');
     t.end();
   });
 };
