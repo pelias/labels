@@ -33,7 +33,6 @@ module.exports.tests.supported_countries = function(test, common) {
     t.equals(Object.keys(schemas.KOR.valueFunctions).length, 3);
     t.equals(Object.keys(schemas.FRA.valueFunctions).length, 2);
     t.equals(Object.keys(schemas.ITA.valueFunctions).length, 3);
-    t.equals(Object.keys(schemas.default.valueFunctions).length, 2);
 
     t.equals(Object.keys(schemas.KOR.meta).length, 1);
     t.equals(schemas.KOR.meta.separator, ' ');

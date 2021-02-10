@@ -102,6 +102,48 @@ module.exports.tests.france = function(test, common) {
     t.end();
   });
 
+  test('São Paulo, major city in Brazil', function(t) {
+    const doc = {
+      'name': { 'default': 'São Paulo'},
+      'layer': 'locality',
+      'locality': ['São Paulo'],
+      'region': ['São Paulo'],
+      'region_a': ['SP'],
+      'country_a': ['BRA'],
+      'country': ['Brazil']
+    };
+    t.equal(generator(doc),'São Paulo, Brazil');
+    t.end();
+  });
+
+  test('São Paulo, major city in Brazil. Language set to English', function(t) {
+    const doc = {
+      'name': { 'default': 'São Paulo'},
+      'layer': 'locality',
+      'locality': ['São Paulo'],
+      'region': ['Sao Paulo'],
+      'region_a': ['SP'],
+      'country_a': ['BRA'],
+      'country': ['Brazil']
+    };
+    t.equal(generator(doc),'São Paulo, Brazil');
+    t.end();
+  });
+
+  test('São Paulo, Amazonas - small village in Brazil', function(t) {
+    const doc = {
+      'name': { 'default': 'São Paulo'},
+      'layer': 'locality',
+      'locality': ['São Paulo'],
+      'region': ['Amazonas'],
+      'region_a': ['AM'],
+      'country_a': ['BRA'],
+      'country': ['Brazil']
+    };
+    t.equal(generator(doc),'São Paulo, AM, Brazil');
+    t.end();
+  });
+
 };
 module.exports.tests.italy = function(test, common) {
   test('Italian street address', function(t) {
