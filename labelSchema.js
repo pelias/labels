@@ -244,5 +244,11 @@ module.exports = {
       'regional': getRegionalValue,
       'country': getFirstProperty(['country'])
     }
-  }
+  },
+  'SGP': {
+    'valueFunctions': {
+      'local': getFirstProperty(['microhood', 'neighbourhood']),
+      'country': getFirstProperty(['country'])
+    }
+  },
 };
