@@ -247,7 +247,8 @@ module.exports = {
   },
   'SGP': {
     'valueFunctions': {
-      'local': getFirstProperty(['locality'])
+      'local': getFirstProperty(['microhood', 'neighbourhood']),
+      'country': getFirstProperty(['country'])
     }
   },
 };
