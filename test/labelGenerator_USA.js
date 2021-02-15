@@ -1,4 +1,5 @@
-var generator = require('../labelGenerator');
+const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -28,6 +29,16 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -48,6 +59,16 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, localadmin name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'localadmin name', role: 'required', layer: 'localadmin' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -67,6 +88,16 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, county name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -88,6 +119,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'house number street name, locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'house number street name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -107,6 +147,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'neighbourhood name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -127,6 +176,16 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, borough name, locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'borough name', role: 'required', layer: 'borough' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -148,6 +207,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, Woodside, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'Woodside', role: 'required', layer: 'neighbourhood' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -167,6 +235,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'Astoria, Queens, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Astoria', role: 'required', layer: 'name' },
+        { label: 'Queens', role: 'required', layer: 'borough' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -188,6 +265,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, Brooklyn, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'Brooklyn', role: 'required', layer: 'borough' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -209,6 +295,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'venue name, Bronx, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'Bronx', role: 'required', layer: 'borough' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -228,6 +323,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'New York Bakery, New York, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'New York Bakery', role: 'required', layer: 'name' },
+        { label: 'New York', role: 'required', layer: 'locality' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -247,6 +351,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'Washington Heights, Manhattan, New York, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Washington Heights', role: 'required', layer: 'name' },
+        { label: 'Manhattan, New York', role: 'required' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -265,6 +378,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'neighbourhood name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -287,6 +409,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'Rego Park, Queens, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Rego Park', role: 'required', layer: 'name' },
+        { label: 'Queens', role: 'required', layer: 'borough' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -309,6 +440,15 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'Williamsburg, Brooklyn, NY, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Williamsburg', role: 'required', layer: 'name' },
+        { label: 'Brooklyn', role: 'required', layer: 'borough' },
+        { label: 'NY', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -327,6 +467,14 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'locality name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -344,6 +492,14 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'localadmin name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'localadmin name', role: 'required', layer: 'name' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -360,6 +516,14 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'county name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'county name', role: 'required', layer: 'name' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -375,6 +539,14 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'macrocounty name, region abbr, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macrocounty name', role: 'required', layer: 'name' },
+        { label: 'region abbr', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -389,6 +561,13 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'region name, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'region name', role: 'required', layer: 'name' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -401,6 +580,13 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'macroregion name, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macroregion name', role: 'required', layer: 'name' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -412,6 +598,7 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'United States');
+    t.deepEqual(partsGenerator(doc), { labelParts: [{ label: 'United States', role: 'required', layer: 'country' }], separator: ', ' });
     t.end();
   });
 
@@ -428,6 +615,14 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'locality name, region name, USA', 'region should be used');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -441,6 +636,10 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'dependency name', 'dependency should be used');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'dependency name', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
 
   });
@@ -460,6 +659,13 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'locality name, dependency abbr', 'dependency_a should be used');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'dependency abbr', role: 'required', layer: 'dependency' },
+      ],
+      separator: ', ',
+    });
     t.end();
 
   });
@@ -478,6 +684,13 @@ module.exports.tests.united_states = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'locality name, dependency name', 'dependency should be used');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'dependency name', role: 'required', layer: 'dependency' },
+      ],
+      separator: ', ',
+    });
     t.end();
 
   });

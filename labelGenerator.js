@@ -1,6 +1,7 @@
 const _ = require('lodash');
 
 const getSchema = require('./getSchema');
+const labelUtils = require('./labelUtils');
 
 function dedupeNameAndFirstLabelElement(labelParts) {
   // only dedupe if a result has more than a name (the first label part)
@@ -8,9 +9,11 @@ function dedupeNameAndFirstLabelElement(labelParts) {
     // first, dedupe the name and 1st label array elements
     //  this is used to ensure that the `name` and first admin hierarchy elements aren't repeated
     //  eg - `["Lancaster", "Lancaster", "PA", "United States"]` -> `["Lancaster", "PA", "United States"]`
-    const deduped = _.uniq([labelParts.shift(), labelParts.shift()]);
-    // second, unshift the deduped parts back onto the labelParts
-    labelParts.unshift.apply(labelParts, deduped);
+    //  we take the first part because the layer should be the name and is required
+    if (labelUtils.getLabel(labelParts[0]) === labelUtils.getLabel(labelParts[1])) {
+      const first = labelParts.shift();
+      labelParts[0] = first;
+    }
 
   }
 
@@ -62,12 +65,18 @@ function buildPrefixLabelParts(schema, record) {
     return [];
   }
 
-  // support name aliases
-  if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
+  const street = [];
+  if (record.layer === 'venue' && record.street) {
+    const label = Array.isArray(record.street) ? record.street[0] : record.street;
+    street.push({ label, role: 'optional', layer: 'street' });
   }
 
-  return [record.name.default];
+  // support name aliases
+  if (Array.isArray(record.name.default)) {
+    return _.concat({ label: record.name.default[0], role: 'required', layer: 'name' }, street);
+  }
+
+  return _.concat({ label: record.name.default, role: 'required', layer: 'name' }, street);
 
 }
 
@@ -100,12 +109,24 @@ function defaultBuilder(schema, record) {
   return dedupeNameAndFirstLabelElement(labelParts);
 }
 
-module.exports = function( record, language ){
+function generator( record, language ) {
   const schema = getSchema(record, language);
   const separator = _.get(schema, ['meta','separator'], ', ');
   const builder = _.get(schema, ['meta', 'builder'], defaultBuilder);
 
   let labelParts = builder(schema, record);
 
-  return _.trim(labelParts.join(separator));
+  return { labelParts, separator };
+}
+
+module.exports = function( record, language ) {
+  const { labelParts, separator } = generator(record, language);
+  const label = labelParts
+    .filter(labelUtils.isRequired)
+    .map(labelUtils.getLabel)
+    .join(separator);
+
+  return _.trim(label);
 };
+
+module.exports.partsGenerator = generator;

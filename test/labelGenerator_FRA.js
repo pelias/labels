@@ -1,4 +1,5 @@
-var generator = require('../labelGenerator');
+const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -27,6 +28,16 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'venue name, locality name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -48,6 +59,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'venue name, locality name, Reunion');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'Reunion', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -67,6 +87,16 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'venue name, localadmin name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'localadmin name', role: 'required', layer: 'localadmin' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -87,6 +117,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'venue name, localadmin name, Reunion');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'localadmin name', role: 'required', layer: 'localadmin' },
+        { label: 'Reunion', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -107,6 +146,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'house number street name, locality name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'house number street name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -128,6 +176,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'house number street name, locality name, Martinique');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'house number street name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'Martinique', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -146,6 +202,15 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'neighbourhood name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -165,6 +230,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, Martinique');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'neighbourhood name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'Martinique', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -182,6 +255,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'locality name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -200,6 +281,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'locality name, Guadeloupe');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'Guadeloupe', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -216,6 +304,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'localadmin name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'localadmin name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -233,6 +329,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'localadmin name, French Guiana');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'localadmin name', role: 'required', layer: 'name' },
+        { label: 'French Guiana', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -248,6 +351,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'county name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'county name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -264,6 +375,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'county name, Reunion');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'county name', role: 'required', layer: 'name' },
+        { label: 'Reunion', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -278,6 +396,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'macrocounty name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macrocounty name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -293,6 +419,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'macrocounty name, Reunion');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macrocounty name', role: 'required', layer: 'name' },
+        { label: 'Reunion', role: 'required', layer: 'region' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -306,6 +439,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'region name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'region name', role: 'required', layer: 'name' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -320,6 +460,10 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'Reunion');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'Reunion', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -332,6 +476,13 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'macroregion name, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macroregion name', role: 'required', layer: 'name' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -345,6 +496,10 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'dependency name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'dependency name', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -357,6 +512,10 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'France', role: 'required', layer: 'country' }],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -375,6 +534,14 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'locality name, dependency name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'region name', role: 'optional', layer: 'region' },
+        { label: 'dependency name', role: 'required', layer: 'dependency' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 

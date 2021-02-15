@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const labelUtils = require('../labelUtils');
 
 function dedupeNameAndLastLabelElement(labelParts) {
   // only dedupe if a result has more than a name (the first label part)
@@ -6,10 +7,11 @@ function dedupeNameAndLastLabelElement(labelParts) {
     // first, dedupe the name and second to last label array elements
     //  this is used to ensure that the `name` and most granular admin hierarchy elements aren't repeated
     //  eg - `["South Korea", "Seoul", "Seoul"]` -> `["South Korea", "Seoul"]`
-    const deduped = _.uniq([labelParts.pop(), labelParts.pop()]).reverse();
-
-    // second, unshift the deduped parts back onto the labelParts
-    labelParts.push.apply(labelParts, deduped);
+    //  we take the last part because the layer should be the name and is required
+    if (labelUtils.getLabel(labelParts[labelParts.length - 1]) === labelUtils.getLabel(labelParts[labelParts.length - 2])) {
+      const last = labelParts.pop();
+      labelParts[labelParts.length - 1] = last;
+    }
 
   }
 
@@ -22,22 +24,22 @@ function nameOrAddressComponents(schema, record) {
   // add the address/venue components
   if (record.layer === 'address') {
     if (record.street) {
-      labelParts.push(record.street);
+      labelParts.push({ label: record.street, role: 'required', layer: 'street' });
     }
     else if (record.neighbourhood) {
-      labelParts.push(record.neighbourhood);
+      labelParts.push({ label: record.neighbourhood, role: 'required', layer: 'neighbourhood' });
     }
-    labelParts.push(record.housenumber);
+    labelParts.push({ label: record.housenumber, role: 'required', layer: 'housenumber' });
 
     return labelParts;
   }
 
   // support name aliases
   if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
+    return [{ label: record.name.default[0], role: 'required', layer: 'name' }];
   }
 
-  return [record.name.default];
+  return [{ label: record.name.default, role: 'required', layer: 'name' }];
 }
 
 function buildAdminLabelPart(schema, record) {

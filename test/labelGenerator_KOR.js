@@ -1,4 +1,5 @@
-var generator = require('../labelGenerator');
+const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -27,6 +28,15 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name venue name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'venue name', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -42,6 +52,16 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name street name 123');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'street name', role: 'required', layer: 'street' },
+        { label: '123', role: 'required', layer: 'housenumber' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -59,6 +79,16 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name street name 123');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'street name', role: 'required', layer: 'street' },
+        { label: '123', role: 'required', layer: 'housenumber' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -75,6 +105,15 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name neighbourhood name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'neighbourhood name', role: 'required', layer: 'name' }
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -90,6 +129,15 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name locality name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'locality name', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -104,6 +152,15 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name localadmin name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'county' },
+        { label: 'localadmin name', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -117,6 +174,14 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name county name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'region' },
+        { label: 'county name', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -129,6 +194,13 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea region name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'South Korea', role: 'required', layer: 'country' },
+        { label: 'region name', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -140,6 +212,10 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['South Korea']
     };
     t.equal(generator(doc),'South Korea');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'South Korea', role: 'required', layer: 'name' }],
+      separator: ' ',
+    });
     t.end();
   });
 
@@ -160,6 +236,34 @@ module.exports.tests.south_korea = function(test, common) {
       'country': ['한국']
     };
     t.equal(generator(doc),'한국 서울 용산구 모세로 27');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '한국', role: 'required', layer: 'country' },
+        { label: '서울', role: 'required', layer: 'region' },
+        { label: '용산구', role: 'required', layer: 'county' },
+        { label: '모세로', role: 'required', layer: 'street' },
+        { label: '27', role: 'required', layer: 'housenumber' },
+      ],
+      separator: ' ',
+    });
+    t.end();
+  });
+
+  test('support name aliases', function(t) {
+    const doc = {
+      'name': { 'default': ['name1', 'name2'] },
+      'layer': 'venue',
+      'country_a': ['KOR'],
+      'country': ['한국']
+    };
+    t.equal(generator(doc), '한국 name1');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '한국', role: 'required', layer: 'country' },
+        { label: 'name1', role: 'required', layer: 'name' },
+      ],
+      separator: ' ',
+    });
     t.end();
   });
 };

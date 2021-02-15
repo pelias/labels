@@ -1,18 +1,19 @@
 const _ = require('lodash');
+const labelUtils = require('../labelUtils');
 
 function buildPrimaryName(schema, record) {
   if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
+    return [{ label: record.name.default[0], role: 'required', layer: 'name' }];
   }
 
-  return [record.name.default];
+  return [{ label: record.name.default, role: 'required', layer: 'name' }];
 }
 
 // create a "normalized" version of a Japanese address part
 // do this by removing some portions of an admin area that should
 // otherwise be ignored for deduplication, like the "prefecture" suffix
 function normalizeJapaneseAdmin(input) {
-  const lower = input.toLowerCase();
+  const lower = labelUtils.getLabel(input).toLowerCase();
   return lower
               .replace(/^(.*)-shi$/i, '$1')
               .replace(/^(.*)\sprefecture$/i, '$1');
@@ -52,7 +53,7 @@ function japanBuilder(schema, record) {
   labelParts =  _.compact(labelParts);
 
   // remove exact duplicates or admin areas will have their name twice
-  labelParts = _.uniq(labelParts);
+  labelParts = labelUtils.uniq(labelParts);
 
   return labelParts;
 }

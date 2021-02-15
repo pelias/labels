@@ -1,6 +1,7 @@
 'use strict';
 
-var generator = require('../labelGenerator');
+const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -30,6 +31,16 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['country name']
     };
     t.equal(generator(doc),'venue name, locality name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -50,6 +61,16 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['country name']
     };
     t.equal(generator(doc),'venue name, localadmin name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'venue name', role: 'required', layer: 'name' },
+        { label: 'street name', role: 'optional', layer: 'street' },
+        { label: 'localadmin name', role: 'required', layer: 'localadmin' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -71,6 +92,15 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['country name']
     };
     t.equal(generator(doc),'house number street name, locality name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'house number street name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -90,6 +120,15 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['country name']
     };
     t.equal(generator(doc),'neighbourhood name, locality name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'neighbourhood name', role: 'required', layer: 'name' },
+        { label: 'locality name', role: 'required', layer: 'locality' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -108,10 +147,18 @@ module.exports.tests.default_country = function(test, common) {
       'country': ['country name']
     };
     t.equal(generator(doc),'locality name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('locality for a major city with a region of the same name', function(t) {
+  test('locality for a major city with a region of the same name', function (t) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
@@ -123,13 +170,20 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'locality name, country name');
+    t.equal(generator(doc), 'locality name, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('locality for a major city with a region of the same name, minor formatting differences', function(t) {
+  test('locality for a major city with a region of the same name, minor formatting differences', function (t) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
@@ -141,13 +195,20 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'locality name, country name');
+    t.equal(generator(doc), 'locality name, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('localadmin', function(t) {
+  test('localadmin', function (t) {
     var doc = {
       'name': { 'default': 'localadmin name' },
       'layer': 'localadmin',
@@ -158,13 +219,21 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'localadmin name, region abbrv, country name');
+    t.equal(generator(doc), 'localadmin name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'localadmin name', role: 'required', layer: 'name' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('county', function(t) {
+  test('county', function (t) {
     var doc = {
       'name': { 'default': 'county name' },
       'layer': 'county',
@@ -174,13 +243,21 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'county name, region abbrv, country name');
+    t.equal(generator(doc), 'county name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'county name', role: 'required', layer: 'name' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('macrocounty', function(t) {
+  test('macrocounty', function (t) {
     var doc = {
       'name': { 'default': 'macrocounty name' },
       'layer': 'macrocounty',
@@ -189,13 +266,21 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'macrocounty name, region abbrv, country name');
+    t.equal(generator(doc), 'macrocounty name, region abbrv, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macrocounty name', role: 'required', layer: 'name' },
+        { label: 'region abbrv', role: 'required', layer: 'region' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('region', function(t) {
+  test('region', function (t) {
     var doc = {
       'name': { 'default': 'region name' },
       'layer': 'region',
@@ -203,48 +288,70 @@ module.exports.tests.default_country = function(test, common) {
       'region_a': ['region abbrv'],
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'region name, country name');
+    t.equal(generator(doc), 'region name, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'region name', role: 'required', layer: 'name' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('macroregion', function(t) {
+  test('macroregion', function (t) {
     var doc = {
       'name': { 'default': 'macroregion name' },
       'layer': 'macroregion',
       'macroregion': ['macroregion name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'macroregion name, country name');
+    t.equal(generator(doc), 'macroregion name, country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'macroregion name', role: 'required', layer: 'name' },
+       { label: 'country name', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('dependency', function(t) {
+  test('dependency', function (t) {
     var doc = {
       'name': { 'default': 'dependency name' },
       'layer': 'dependency',
       'dependency': ['dependency name'],
       'country_a': ['country code'],
-      'country': ['hierarchy country name']
+      'country': ['hierarchy country name'],
     };
-    t.equal(generator(doc),'dependency name');
+    t.equal(generator(doc), 'dependency name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'dependency name', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('country layer labels should only use the `country` field and not the `name`', function(t) {
+  test('country layer labels should only use the `country` field and not the `name`', function (t) {
     var doc = {
       'name': { 'default': 'source country name' },
       'layer': 'country',
       'country_a': ['country code'],
-      'country': ['hierarchy country name']
+      'country': ['hierarchy country name'],
     };
-    t.equal(generator(doc),'hierarchy country name');
+    t.equal(generator(doc), 'hierarchy country name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'hierarchy country name', role: 'required', layer: 'country' }],
+      separator: ', ',
+    });
     t.end();
   });
 
-  test('locality with dependency should ignore country', function(t) {
+  test('locality with dependency should ignore country', function (t) {
     var doc = {
       'name': { 'default': 'locality name' },
       'layer': 'locality',
@@ -256,9 +363,16 @@ module.exports.tests.default_country = function(test, common) {
       'macroregion': ['macroregion name'],
       'dependency': ['dependency name'],
       'country_a': ['country code'],
-      'country': ['country name']
+      'country': ['country name'],
     };
-    t.equal(generator(doc),'locality name, dependency name');
+    t.equal(generator(doc), 'locality name, dependency name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'locality name', role: 'required', layer: 'name' },
+        { label: 'dependency name', role: 'required', layer: 'dependency' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -271,6 +385,10 @@ module.exports.tests.default_country = function(test, common) {
       //note no country_a
     };
     t.equal(generator(doc),'region name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'region name', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -279,6 +397,10 @@ module.exports.tests.default_country = function(test, common) {
       name: { default: ['name1','name2'] } // note the array
     };
     t.equal(generator(doc),'name1');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'name1', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 };
