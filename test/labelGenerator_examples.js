@@ -204,7 +204,21 @@ module.exports.tests.name_only = function(test, common) {
     t.equal(generator(doc),'Result name');
     t.end();
   });
+};
 
+// Geonames Philippines record has no admin info!
+// https://github.com/pelias/api/issues/720
+module.exports.tests.name_only_country = function (test, common) {
+  test('name-only results (no admin fields) - Geonames Philippines', function (t) {
+    var doc = {
+      'name': {
+        'default': 'Republic of the Philippines'
+      },
+      'layer': 'country'
+    };
+    t.equal(generator(doc), 'Republic of the Philippines');
+    t.end();
+  });
 };
 
 module.exports.all = function (tape, common) {
