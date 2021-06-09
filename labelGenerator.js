@@ -88,7 +88,7 @@ function buildPrefixLabelParts(schema, record) {
     return [];
   }
 
-  if (isCountry(record.layer)) {
+  if (isCountry(record.layer) && !_.isEmpty(record.country)) {
     return [];
   }
 
