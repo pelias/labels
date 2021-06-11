@@ -9,14 +9,14 @@ function dedupeNameAndFirstLabelElement(labelParts) {
     // first, dedupe the name and 1st label array elements
     //  this is used to ensure that the `name` and first admin hierarchy elements aren't repeated
     //  eg - `["Lancaster", "Lancaster", "PA", "United States"]` -> `["Lancaster", "PA", "United States"]`
-    const deduped = _.uniq([labelParts.shift(), labelParts.shift()]);
-    // second, unshift the deduped parts back onto the labelParts
-    labelParts.unshift.apply(labelParts, deduped);
-
+    //  we take the first part because the layer should be the name and is required
+    if (labelParts[0].label === labelParts[1].label) {
+      const first = labelParts.shift();
+      labelParts[0] = first;
+    }
   }
 
   return labelParts;
-
 }
 
 function dedupeNameAndLastLabelElement(labelParts) {
@@ -25,15 +25,14 @@ function dedupeNameAndLastLabelElement(labelParts) {
     // first, dedupe the name and second to last label array elements
     //  this is used to ensure that the `name` and most granular admin hierarchy elements aren't repeated
     //  eg - `["South Korea", "Seoul", "Seoul"]` -> `["South Korea", "Seoul"]`
-    const deduped = _.uniq([labelParts.pop(), labelParts.pop()]).reverse();
-
-    // second, unshift the deduped parts back onto the labelParts
-    labelParts.push.apply(labelParts, deduped);
-
+    //  we take the last part because the layer should be the name and is required
+    if (labelParts[labelParts.length - 1].label === labelParts[labelParts.length - 2].label) {
+      const last = labelParts.pop();
+      labelParts[labelParts.length - 1] = last;
+    }
   }
 
   return labelParts;
-
 }
 
 function getSchema(country_a) {
@@ -42,7 +41,6 @@ function getSchema(country_a) {
   }
 
   return schemas.default;
-
 }
 
 // this can go away once geonames is no longer supported
@@ -69,7 +67,6 @@ function isUSAOrCAN(country_a) {
 
 function isGeonamesOrWhosOnFirst(source) {
   return 'geonames' === source || 'whosonfirst' === source;
-
 }
 
 function isInUSAOrCAN(record) {
@@ -81,10 +78,8 @@ function isInKOR(record) {
 }
 
 // helper function that sets a default label for non-US/CA regions and countries
-function buildPrefixLabelParts(schema, record) {
-  if (isRegion(record.layer) &&
-    isGeonamesOrWhosOnFirst(record.source) &&
-    isInUSAOrCAN(record)) {
+function buildPrefixLabelParts(schema, record, role = 'required') {
+  if (isRegion(record.layer) && isGeonamesOrWhosOnFirst(record.source) && isInUSAOrCAN(record)) {
     return [];
   }
 
@@ -96,13 +91,17 @@ function buildPrefixLabelParts(schema, record) {
     return [];
   }
 
-  // support name aliases
-  if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
+  const street = [];
+  if (record.layer === 'venue' && record.street) {
+    street.push({ label: record.street, role: 'optional', layer: 'street' });
   }
 
-  return [record.name.default];
+  // support name aliases
+  if (Array.isArray(record.name.default)) {
+    return _.concat({ label: record.name.default.slice(0, 1), role, layer: 'name' }, street);
+  }
 
+  return _.concat({ label: record.name.default, role, layer: 'name' }, street);
 }
 
 function buildAdminLabelPart(schema, record) {
@@ -111,13 +110,16 @@ function buildAdminLabelPart(schema, record) {
   // iterate the schema
   for (const field in schema.valueFunctions) {
     const valueFunction = schema.valueFunctions[field];
-    labelParts.push(valueFunction(record));
+    const result = valueFunction(record);
+    if (result && result.label) {
+      labelParts.push(_.assign({ layer: field }, result));
+    }
   }
 
   return labelParts;
 }
 
-function buildPostfixLabelParts(schema, record) {
+function buildPostfixLabelParts(schema, record, role = 'required') {
   if (!isInKOR(record)) {
     return [];
   }
@@ -126,27 +128,26 @@ function buildPostfixLabelParts(schema, record) {
 
   if (isAddress(record.layer)) {
     if (record.street) {
-      labelParts.push(record.street);
+      labelParts.push({ label: record.street, role, layer: 'name' });
+    } else if (record.neighbourhood) {
+      labelParts.push({ label: record.neighbourhood, role, layer: 'name' });
     }
-    else if (record.neighbourhood) {
-      labelParts.push(record.neighbourhood);
-    }
-    labelParts.push(record.housenumber);
+    labelParts.push({ label: record.housenumber, role, layer: 'housenumber' });
 
     return labelParts;
   }
 
   // support name aliases
   if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
+    return [{ label: record.name.default[0], role, layer: 'name' }];
   }
 
-  return [record.name.default];
+  return [{ label: record.name.default, role, layer: 'name' }];
 }
 
-module.exports = function( record ){
+function generator (record) {
   const schema = getSchema(record.country_a);
-  const separator = _.get(schema, ['meta','separator'], ', ');
+  const separator = _.get(schema, ['meta', 'separator'], ', ');
 
   // in virtually all cases, this will be the `name` field
   const prefixParts = buildPrefixLabelParts(schema, record);
@@ -161,11 +162,16 @@ module.exports = function( record ){
   // third, dedupe and join with a comma and return
   if (isInKOR(record)) {
     labelParts = dedupeNameAndLastLabelElement(labelParts);
-  }
-  else {
+  } else {
     labelParts = dedupeNameAndFirstLabelElement(labelParts);
   }
 
-  return labelParts.join(separator);
+  return { parts: labelParts, separator };
+}
 
+module.exports = function(record) {
+  const { parts, separator } = generator(record);
+  return parts.filter(p => p.role === 'required').map(p => p.label).join(separator);
 };
+
+module.exports.partsGenerator = generator;
