@@ -9,7 +9,7 @@
   "scripts": {
     "test": "node test/test | tap-dot",
     "lint": "jshint .",
-    "travis": "npm test",
+    "ci": "npm test",
     "validate": "npm ls"
   },
   "author": "Pelias",
