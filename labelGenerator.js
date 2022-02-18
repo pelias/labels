@@ -144,19 +144,30 @@ function buildPostfixLabelParts(schema, record) {
   return [record.name.default];
 }
 
-module.exports = function( record ){
-  const schema = getSchema(record.country_a);
-  const separator = _.get(schema, ['meta','separator'], ', ');
+// builds a complete label by combining several components
+// the parts generally follow this format
+// prefix parts: the venue name or address
+// admin parts: administrative information like city
+// postfix part: higher level admin areas
+function defaultBuilder(schema, record) {
 
   // in virtually all cases, this will be the `name` field
   const prefixParts = buildPrefixLabelParts(schema, record);
   const adminParts = buildAdminLabelPart(schema, record);
   const postfixParts = buildPostfixLabelParts(schema, record);
 
-  let labelParts = _.concat(prefixParts, adminParts, postfixParts);
+  const labelParts = _.concat(prefixParts, adminParts, postfixParts);
 
   // retain only things that are truthy
-  labelParts = _.compact(labelParts);
+  return _.compact(labelParts);
+}
+
+module.exports = function( record ){
+  const schema = getSchema(record.country_a);
+  const separator = _.get(schema, ['meta','separator'], ', ');
+  const builder = _.get(schema, ['meta', 'builder'], defaultBuilder);
+
+  let labelParts = builder(schema, record);
 
   // third, dedupe and join with a comma and return
   if (isInKOR(record)) {
