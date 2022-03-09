@@ -252,4 +252,21 @@ module.exports = {
       'country': getFirstProperty(['country'])
     }
   },
+  'JPN': {
+    'valueFunctions': {
+      'district': getFirstProperty(['neighbourhood']),
+      'machi': getFirstProperty(['borough']), // this is a middle layer between city and district for larger cities
+      // 20 important cities in Japan are known as 'designated cities'
+      // https://en.wikipedia.org/wiki/Cities_designated_by_government_ordinance_of_Japan
+      'designated-city': getFirstProperty(['locality']),
+      // outside of designated cities, this is the city name
+      'city': getFirstProperty(['county']),
+      'prefecture': getFirstProperty(['region']),
+      'postalcode': getFirstProperty(['postalcode']),
+      'country': getFirstProperty(['country']),
+    },
+    'meta': {
+      'builder': require('./builders/JPN')
+    }
+  },
 };
