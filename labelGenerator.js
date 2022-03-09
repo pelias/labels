@@ -19,23 +19,6 @@ function dedupeNameAndFirstLabelElement(labelParts) {
 
 }
 
-function dedupeNameAndLastLabelElement(labelParts) {
-  // only dedupe if a result has more than a name (the first label part)
-  if (labelParts.length > 1) {
-    // first, dedupe the name and second to last label array elements
-    //  this is used to ensure that the `name` and most granular admin hierarchy elements aren't repeated
-    //  eg - `["South Korea", "Seoul", "Seoul"]` -> `["South Korea", "Seoul"]`
-    const deduped = _.uniq([labelParts.pop(), labelParts.pop()]).reverse();
-
-    // second, unshift the deduped parts back onto the labelParts
-    labelParts.push.apply(labelParts, deduped);
-
-  }
-
-  return labelParts;
-
-}
-
 function getSchema(country_a) {
   if (!_.isEmpty(schemas[country_a])) {
     return schemas[country_a[0]];
@@ -59,10 +42,6 @@ function isAddress(layer) {
   return 'address' === layer;
 }
 
-function isKOR(country_a) {
-  return 'KOR' === country_a;
-}
-
 function isUSAOrCAN(country_a) {
   return 'USA' === country_a || 'CAN' === country_a;
 }
@@ -76,10 +55,6 @@ function isInUSAOrCAN(record) {
   return record.country_a && isUSAOrCAN(record.country_a[0]);
 }
 
-function isInKOR(record) {
-  return record.country_a && isKOR(record.country_a[0]);
-}
-
 // helper function that sets a default label for non-US/CA regions and countries
 function buildPrefixLabelParts(schema, record) {
   if (isRegion(record.layer) &&
@@ -89,10 +64,6 @@ function buildPrefixLabelParts(schema, record) {
   }
 
   if (isCountry(record.layer) && !_.isEmpty(record.country)) {
-    return [];
-  }
-
-  if (isInKOR(record)) {
     return [];
   }
 
@@ -117,55 +88,29 @@ function buildAdminLabelPart(schema, record) {
   return labelParts;
 }
 
-function buildPostfixLabelParts(schema, record) {
-  if (!isInKOR(record)) {
-    return [];
-  }
+// builds a complete label by combining several components
+// the parts generally follow this format
+// prefix parts: the venue name or address
+// admin parts: administrative information like city
+function defaultBuilder(schema, record) {
 
-  const labelParts = [];
+  // in virtually all cases, this will be the `name` field
+  const prefixParts = buildPrefixLabelParts(schema, record);
+  const adminParts = buildAdminLabelPart(schema, record);
 
-  if (isAddress(record.layer)) {
-    if (record.street) {
-      labelParts.push(record.street);
-    }
-    else if (record.neighbourhood) {
-      labelParts.push(record.neighbourhood);
-    }
-    labelParts.push(record.housenumber);
+  let labelParts = _.concat(prefixParts, adminParts);
 
-    return labelParts;
-  }
-
-  // support name aliases
-  if (Array.isArray(record.name.default)) {
-    return record.name.default.slice(0,1);
-  }
-
-  return [record.name.default];
+  // retain only things that are truthy
+  labelParts =  _.compact(labelParts);
+  return dedupeNameAndFirstLabelElement(labelParts);
 }
 
 module.exports = function( record ){
   const schema = getSchema(record.country_a);
   const separator = _.get(schema, ['meta','separator'], ', ');
+  const builder = _.get(schema, ['meta', 'builder'], defaultBuilder);
 
-  // in virtually all cases, this will be the `name` field
-  const prefixParts = buildPrefixLabelParts(schema, record);
-  const adminParts = buildAdminLabelPart(schema, record);
-  const postfixParts = buildPostfixLabelParts(schema, record);
-
-  let labelParts = _.concat(prefixParts, adminParts, postfixParts);
-
-  // retain only things that are truthy
-  labelParts = _.compact(labelParts);
-
-  // third, dedupe and join with a comma and return
-  if (isInKOR(record)) {
-    labelParts = dedupeNameAndLastLabelElement(labelParts);
-  }
-  else {
-    labelParts = dedupeNameAndFirstLabelElement(labelParts);
-  }
+  let labelParts = builder(schema, record);
 
   return labelParts.join(separator);
-
 };

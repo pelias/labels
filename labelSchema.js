@@ -229,7 +229,8 @@ module.exports = {
       'city': getFirstProperty(['county'])
     },
     'meta': {
-      'separator': ' '
+      'separator': ' ',
+      'builder': require('./builders/KOR')
     }
   },
   'FRA': {
