@@ -18,6 +18,7 @@ var tests = [
   require ('./labelGenerator_KOR'),
   require ('./labelGenerator_JPN'),
   require ('./labelGenerator_FRA'),
+  require ('./getSchema'),
   require ('./labelSchema')
 ];
 
