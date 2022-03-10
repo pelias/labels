@@ -253,6 +253,28 @@ module.exports = {
     }
   },
   'JPN': {
+    'languages': {
+      'JPN': {
+        'valueFunctions': {
+          'prefecture': getFirstProperty(['region']),
+
+          // outside of designated cities, this is the city name
+          'city': getFirstProperty(['county']),
+
+          // 20 important cities in Japan are known as 'designated cities'
+          // https://en.wikipedia.org/wiki/Cities_designated_by_government_ordinance_of_Japan
+          'designated-city': getFirstProperty(['locality']),
+
+          'machi': getFirstProperty(['borough']), // this is a middle layer between city and district for larger cities
+
+          'district': getFirstProperty(['neighbourhood']),
+        },
+        'meta': {
+          'builder': require('./builders/JPN-JPN'),
+          'separator': '' // no separation between most elements in Japanese
+        }
+      }
+    },
     'valueFunctions': {
       'district': getFirstProperty(['neighbourhood']),
       'machi': getFirstProperty(['borough']), // this is a middle layer between city and district for larger cities
