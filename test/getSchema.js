@@ -68,6 +68,14 @@ module.exports.tests.schema_and_language_selection = function(test, common) {
     t.equals(actual, expected, 'USA schema selected');
     t.end();
   });
+
+  test('valid language and valid country_a combination selects that language variant for country', function(t) {
+    const actual = getSchema({ country_a: ['JPN']}, 'JPN'); // There is a Japanese specific label format for records in Japan
+    const expected = schemas.JPN.languages.JPN;
+
+    t.equals(actual, expected, 'Japanese schema for Japanese language selected');
+    t.end();
+  });
 };
 
 module.exports.all = function (tape, common) {
