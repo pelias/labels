@@ -1,7 +1,6 @@
-'use strict';
-
 const _ = require('lodash');
-const schemas = require('./labelSchema');
+
+const getSchema = require('./getSchema');
 
 function dedupeNameAndFirstLabelElement(labelParts) {
   // only dedupe if a result has more than a name (the first label part)
@@ -16,16 +15,12 @@ function dedupeNameAndFirstLabelElement(labelParts) {
   }
 
   return labelParts;
-
 }
 
-function getSchema(country_a) {
-  if (!_.isEmpty(schemas[country_a])) {
-    return schemas[country_a[0]];
-  }
+function getLanguage(language) {
+  if (!_.isString(language)) { return; }
 
-  return schemas.default;
-
+  return language.toUpperCase();
 }
 
 // this can go away once geonames is no longer supported
@@ -105,12 +100,12 @@ function defaultBuilder(schema, record) {
   return dedupeNameAndFirstLabelElement(labelParts);
 }
 
-module.exports = function( record ){
-  const schema = getSchema(record.country_a);
+module.exports = function( record, language ){
+  const schema = getSchema(record, language);
   const separator = _.get(schema, ['meta','separator'], ', ');
   const builder = _.get(schema, ['meta', 'builder'], defaultBuilder);
 
   let labelParts = builder(schema, record);
 
-  return labelParts.join(separator);
+  return _.trim(labelParts.join(separator));
 };
