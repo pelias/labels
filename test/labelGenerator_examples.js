@@ -1,4 +1,5 @@
-var generator = require('../labelGenerator');
+const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -24,6 +25,16 @@ module.exports.tests.canada = function(test, common) {
       'country': ['Canada']
     };
     t.equal(generator(doc),'Tim Horton\'s, Thunder Bay, ON, Canada');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: `Tim Horton's`, role: 'required', layer: 'name' },
+        { label: 'Main St', role: 'optional', layer: 'street' },
+        { label: 'Thunder Bay', role: 'required', layer: 'locality' },
+        { label: 'ON', role: 'required', layer: 'region' },
+        { label: 'Canada', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -40,6 +51,16 @@ module.exports.tests.canada = function(test, common) {
       'country': ['United States']
     };
     t.equal(generator(doc),'1 Main St, Truth or Consequences, NM, USA');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '1 Main St', role: 'required', layer: 'name' },
+        { label: 'Main St', role: 'optional', layer: 'street' },
+        { label: 'Truth or Consequences', role: 'required', layer: 'locality' },
+        { label: 'NM', role: 'required', layer: 'region' },
+        { label: 'USA', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 };
@@ -56,6 +77,15 @@ module.exports.tests.france = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'Tour Eiffel, Paris, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Tour Eiffel', role: 'required', layer: 'name' },
+        { label: 'Paris', role: 'required', layer: 'locality' },
+        { label: 'Paris', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -72,6 +102,15 @@ module.exports.tests.france = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'74 rue de rivoli, Paris, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '74 rue de rivoli', role: 'required', layer: 'name' },
+        { label: 'Paris', role: 'required', layer: 'locality' },
+        { label: 'Paris', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -86,6 +125,15 @@ module.exports.tests.france = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'Grange aux Belles Terrage, Paris, France');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Grange aux Belles Terrage', role: 'required', layer: 'name' },
+        { label: 'Paris', role: 'required', layer: 'locality' },
+        { label: 'Paris', role: 'optional', layer: 'region' },
+        { label: 'France', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -99,6 +147,13 @@ module.exports.tests.france = function(test, common) {
     };
     // console.error(generator(doc));
     t.equal(generator(doc),'Luxembourg, Luxembourg');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Luxembourg', role: 'required', layer: 'name' },
+        { label: 'Luxembourg', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -113,6 +168,13 @@ module.exports.tests.france = function(test, common) {
       'country': ['Brazil']
     };
     t.equal(generator(doc),'São Paulo, Brazil');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'São Paulo', role: 'required', layer: 'name' },
+        { label: 'Brazil', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -127,6 +189,13 @@ module.exports.tests.france = function(test, common) {
       'country': ['Brazil']
     };
     t.equal(generator(doc),'São Paulo, Brazil');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'São Paulo', role: 'required', layer: 'name' },
+        { label: 'Brazil', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -141,6 +210,14 @@ module.exports.tests.france = function(test, common) {
       'country': ['Brazil']
     };
     t.equal(generator(doc),'São Paulo, AM, Brazil');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'São Paulo', role: 'required', layer: 'name' },
+        { label: 'AM', role: 'required', layer: 'region' },
+        { label: 'Brazil', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -155,6 +232,13 @@ module.exports.tests.france = function(test, common) {
       'country': ['Singapore']
     };
     t.equal(generator(doc),'National Gallery Singapore, Singapore');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'National Gallery Singapore', role: 'required', layer: 'name' },
+        { label: 'Singapore', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -170,6 +254,14 @@ module.exports.tests.france = function(test, common) {
       'country': ['Singapore']
     };
     t.equal(generator(doc),'Universal Studios Singapore, Sentosa, Singapore');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Universal Studios Singapore', role: 'required', layer: 'name' },
+        { label: 'Sentosa', role: 'required', layer: 'neighbourhood' },
+        { label: 'Singapore', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 };
@@ -188,6 +280,15 @@ module.exports.tests.italy = function(test, common) {
       'country': ['Italia']
     };
     t.equal(generator(doc),'Corso Duca Degli Abruzzi 71, Torino, TO, Italia');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Corso Duca Degli Abruzzi 71', role: 'required', layer: 'name' },
+        { label: 'Torino', role: 'required', layer: 'locality'  },
+        { label: 'TO', role: 'required', layer: 'region' },
+        { label: 'Italia', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -202,6 +303,10 @@ module.exports.tests.name_only = function(test, common) {
       }
     };
     t.equal(generator(doc),'Result name');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'Result name', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 };
@@ -217,6 +322,10 @@ module.exports.tests.name_only_country = function (test, common) {
       'layer': 'country'
     };
     t.equal(generator(doc), 'Republic of the Philippines');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [{ label: 'Republic of the Philippines', role: 'required', layer: 'name' }],
+      separator: ', ',
+    });
     t.end();
   });
 };

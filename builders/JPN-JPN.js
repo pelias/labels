@@ -7,7 +7,7 @@ function scalarOrFirstElement(param) {
 
 function formatPostalCode(record) {
   if (record.postalcode) {
-    return '〒' + record.postalcode;
+    return { label: '〒' + record.postalcode, role: 'required', layer: 'postalcode' };
   }
 }
 
@@ -31,7 +31,7 @@ function buildAdminLabelPart(schema, record) {
 // detect this case and then return the street value
 function formatDistrictPart(record) {
   if (scalarOrFirstElement(record.name.default).includes(record.street)) {
-    return record.street;
+    return { label: record.street, role: 'required', layer: 'neighbourhood' };
   }
 }
 
@@ -43,18 +43,19 @@ function formatBlockPart(record) {
 
   const match = bangoRegex.exec(record.housenumber);
   if (match) {
-    return `${match[1]}番${match[2]}号`;
+    return { label: `${match[1]}番${match[2]}号`, role: 'required', layer: 'housenumber' };
   }
 
-  return record.housenumber;
+  return record.housenumber && { label: record.housenumber, role: 'required', layer: 'housenumber' };
 }
 
 function venueName(record) {
   if (record.layer !== 'venue') {
     return;
   }
+  const label = scalarOrFirstElement(record.name.ja) || scalarOrFirstElement(record.name.default);
 
-  return scalarOrFirstElement(record.name.ja) || scalarOrFirstElement(record.name.default);
+  return { label, role: 'required', layer: 'name' };
 }
 
 // builds a complete label by combining several components

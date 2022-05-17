@@ -1,4 +1,5 @@
 const generator = require('../labelGenerator');
+const partsGenerator = require('../labelGenerator').partsGenerator;
 
 module.exports.tests = {};
 
@@ -25,6 +26,19 @@ module.exports.tests.english_style_labels = function(test, common) {
       '2 ' + // housenumber plus space to separate venue name
       '東京中央郵便局'; // venue name: 'Tokyo Central Post Office'
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        { label: '〒100-0005', role: 'required', layer: 'postalcode' },
+        ' ',
+        { label: '東京', role: 'required', layer: 'region' },
+        { label: '千代田', role: 'required', layer: 'county' },
+        { label: '東京', role: 'required', layer: 'locality' },
+        { label: '2', role: 'required', layer: 'housenumber' },
+        ' ',
+        { label: '東京中央郵便局', role: 'required', layer: 'name' },
+      ],
+      separator: '',
+    });
     t.end();
   });
 
@@ -52,6 +66,19 @@ module.exports.tests.english_style_labels = function(test, common) {
       '丸の内二丁目' + // district (street), Marunouchi 2-chome
       '7番9号'; // "bango" (block and building number)
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '東京', role: 'required', layer: 'region' },
+        { label: '千代田', role: 'required', layer: 'county' },
+        { label: '東京', role: 'required', layer: 'locality' },
+        { label: '千代田区', role: 'required', layer: 'borough' },
+        { label: '丸の内二丁目', role: 'required', layer: 'neighbourhood' },
+        { label: '7番9号', role: 'required', layer: 'housenumber' },
+        ' ',
+      ],
+      separator: '',
+    });
     t.end();
   });
 
@@ -78,6 +105,18 @@ module.exports.tests.english_style_labels = function(test, common) {
       '中原' + // chome/ward (street), Nakahara
       '331番8号'; // "bango" (block and building number)
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '東京', role: 'required', layer: 'region' },
+        { label: '静岡', role: 'required', layer: 'county' },
+        { label: '静岡市', role: 'required', layer: 'locality' },
+        { label: '中原', role: 'required', layer: 'neighbourhood' },
+        { label: '331番8号', role: 'required', layer: 'housenumber' },
+        ' ',
+      ],
+      separator: '',
+    });
     t.end();
   });
 
@@ -103,6 +142,18 @@ module.exports.tests.english_style_labels = function(test, common) {
       '2番12号'; // "bango" (block and building number)
 
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '北海', role: 'required', layer: 'region' },
+        { label: '札幌', role: 'required', layer: 'county' },
+        { label: '札幌市', role: 'required', layer: 'locality' },
+        { label: '北二十四条西四丁目', role: 'required', layer: 'neighbourhood' },
+        { label: '2番12号', role: 'required', layer: 'housenumber' },
+        ' ',
+      ],
+      separator: '',
+    });
     t.end();
   });
 
@@ -126,6 +177,17 @@ module.exports.tests.english_style_labels = function(test, common) {
       '大崎' + // chome/ward (street), Osaki
       '1059番2号'; // "bango" (block and building number)
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '福岡', role: 'required', layer: 'region' },
+        { label: '小郡市', role: 'required', layer: 'county' },
+        { label: '大崎', role: 'required', layer: 'neighbourhood' },
+        { label: '1059番2号', role: 'required', layer: 'housenumber' },
+        ' ',
+      ],
+      separator: '',
+    });
     t.end();
   });
 
@@ -149,6 +211,39 @@ module.exports.tests.english_style_labels = function(test, common) {
       '９丁目';  // ward (neighbourhoood)
 
     t.equal(generator(doc, 'JPN'), expected);
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '東京', role: 'required', layer: 'region' },
+        { label: '世田谷区', role: 'required', layer: 'county' },
+        { label: '世田谷区', role: 'required', layer: 'locality' },
+        { label: '９丁目', role: 'required', layer: 'neighbourhood' },
+        ' ',
+      ],
+      separator: '',
+    });
+    t.end();
+  });
+
+  test('support name aliases', function(t) {
+    const doc = {
+      name: { default: ['name1', 'name2'] },
+      layer: 'venue',
+      region: ['東京'],
+      region_a: ['TK'],
+      country: ['日本'],
+      country_a: ['JPN'],
+    };
+    t.equal(generator(doc, 'JPN'), '東京 name1');
+    t.deepEqual(partsGenerator(doc, 'JPN'), {
+      labelParts: [
+        ' ',
+        { label: '東京', role: 'required', layer: 'region' },
+        ' ',
+        { label: 'name1', role: 'required', layer: 'name' },
+      ],
+      separator: '',
+    });
     t.end();
   });
 };

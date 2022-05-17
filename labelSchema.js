@@ -13,13 +13,13 @@ function normalizeString(str){
 const FRA_OVERSEAS = ['GF', 'GP', 'MQ', 'RE', 'YT'];
 
 // find the first field of record that has a non-empty value that's not already in labelParts
-function getFirstProperty(fields) {
+function getFirstProperty(fields, role = 'required') {
   return function(record) {
     for (var i = 0; i < fields.length; i++) {
       var fieldValue = record[fields[i]];
 
       if (!_.isEmpty(fieldValue)) {
-        return fieldValue[0];
+        return { label: fieldValue[0], role, layer: fields[i] };
       }
 
     }
@@ -34,29 +34,29 @@ function getFirstProperty(fields) {
 //  the full state/province name, eg: Pennsylvania, USA and Ontario, CA
 // 3.  otherwise, the state/province abbreviation should be used, eg: Lancaster, PA, USA and Bruce, ON, CA
 // 4.  if the abbreviation isn't available, use the full state/province name
-function getRegionalValue(record) {
+function getRegionalValue(record, role = 'required') {
   if (!_.isEmpty(record.dependency) || !_.isEmpty(record.dependency_a)) {
     return;
   }
 
   if ('region' === record.layer && !_.isEmpty(record.region)) {
     // return full state name when state is the most granular piece of info
-    return record.region[0];
+    return { label: record.region[0], role, layer: 'region' };
 
   } else if (!_.isEmpty(record.region_a)) {
     // otherwise just return the region code when available
-    return record.region_a[0];
+    return { label: record.region_a[0], role, layer: 'region' };
 
   } else if (!_.isEmpty(record.region)) {
     // return the full name when there's no region code available
-    return record.region[0];
+    return { label: record.region[0], role, layer: 'region' };
   }
 }
 
 // The same as getRegionalValue above, but only returns a region if the region name
 // is distinct from the locality/localadmin/city name
 // This works best for large cities in countries where the region name/abbr is not _always_ included in the label
-function getUniqueRegionalValue(record) {
+function getUniqueRegionalValue(record, role = 'required') {
   if (!_.isEmpty(record.dependency) || !_.isEmpty(record.dependency_a)) {
     return;
   }
@@ -65,10 +65,10 @@ function getUniqueRegionalValue(record) {
   if ('region' === record.layer) {
     if (!_.isEmpty(record.region)) {
     // return full state name when state is the most granular piece of info
-    return record.region[0];
+    return { label: record.region[0], role, layer: 'region' };
     }
   } else {
-    const localityValue = getFirstProperty(['locality', 'localadmin'])(record);
+    const localityValue = _.get(getFirstProperty(['locality', 'localadmin'])(record), 'label');
 
     if (record.region && normalizeString(localityValue) === normalizeString(record.region[0])) {
       // skip returning anything when the region and locality name are identical
@@ -78,9 +78,9 @@ function getUniqueRegionalValue(record) {
 
     // prefer the region abbreviation, fall back to the region name if no abbreviation
     if (!_.isEmpty(record.region_a)) {
-      return record.region_a[0];
+      return { label: record.region_a[0], role, layer: 'region' };
     } else if (!_.isEmpty(record.region)) {
-      return record.region[0];
+      return { label: record.region[0], role, layer: 'region' };
     }
   }
 }
@@ -91,20 +91,20 @@ function getUniqueRegionalValue(record) {
 // 3.  use dependency abbreviation if applicable, eg - San Juan, PR
 // 4.  use dependency name if no abbreviation, eg - San Juan, Puerto Rico
 // 5.  use country abbreviation, eg - Lancaster, PA, USA
-function getUSADependencyOrCountryValue(record) {
+function getUSADependencyOrCountryValue(record, role = 'required') {
   if ('dependency' === record.layer && !_.isEmpty(record.dependency)) {
-    return record.dependency[0];
+    return { label: record.dependency[0], role, layer: 'dependency' };
   } else if ('country' === record.layer && !_.isEmpty(record.country)) {
-    return record.country[0];
+    return { label: record.country[0], role, layer: 'country' };
   }
 
   if (!_.isEmpty(record.dependency_a)) {
-    return record.dependency_a[0];
+    return { label: record.dependency_a[0], role, layer: 'dependency' };
   } else if (!_.isEmpty(record.dependency)) {
-    return record.dependency[0];
+    return { label: record.dependency[0], role, layer: 'dependency' };
   }
 
-  return record.country_a[0];
+  return { label: record.country_a[0], role, layer: 'country' };
 }
 
 // this function generates the last field of the labels for FRA records
@@ -122,10 +122,25 @@ function getFRACountryValue() {
   };
 }
 
+// this function generates the region field for FRA records.
+// 1.  use nothing if the record is a in the French overseas or Paris (VP),
+//     eg - Saint-Denis, Reunion (instead of Saint-Denis, Reunion, Reunion)
+// 2.  use region name, eg - Bagneux, Hauts-De-Seine, France
+// 3.  use this with caution, Paris is both a locality and region. This can cause label like `Tour Eiffel, Paris, Paris, France`
+function getFRARegionValue() {
+  const _default = getFirstProperty(['region'], 'optional');
+  return (record) => {
+    if (!_.isEmpty(record.region_a) && (_.includes(FRA_OVERSEAS, record.region_a[0]) || record.region_a[0] === 'VP')) {
+      return undefined;
+    }
+    return _default(record);
+  };
+}
+
 function isInNYC(record) {
-  const _region_a = getFirstProperty(['region_a'])(record);
-  const _country_a = getFirstProperty(['country_a'])(record);
-  const _locality_a = getFirstProperty(['locality_a'])(record);
+  const _region_a = _.get(getFirstProperty(['region_a'])(record), 'label');
+  const _country_a = _.get(getFirstProperty(['country_a'])(record), 'label');
+  const _locality_a = _.get(getFirstProperty(['locality_a'])(record), 'label');
 
   return _country_a === 'USA' && _region_a === 'NY' && _locality_a === 'NYC';
 }
@@ -146,26 +161,23 @@ function getUSABoroughValue(record) {
 // - The borough is used for the locality in addresses
 // - Except in Queens, where ideally the neighbourhood is
 // - Also, 'New York' is the proper locality name for Manhattan
-function getNYCLocalValue(record) {
-  const _default = getFirstProperty(['locality', 'localadmin', 'county'])(record);
-  const _borough = getFirstProperty(['borough'])(record);
-  const _neighbourhood = getFirstProperty(['neighbourhood'])(record);
+function getNYCLocalValue(record, role = 'required') {
+  const _default = getFirstProperty(['locality', 'localadmin', 'county'], role)(record);
+  const _borough = getFirstProperty(['borough'], role)(record);
+  const _neighbourhood = getFirstProperty(['neighbourhood'], role)(record);
   // We still want to return "neighborhood, borough, region_a" when a user searches for a neighborhood
   // otherwise it looks incomplete, so skip to returning the borough in that case
   // Otherwise, in Queens only, use the neighborhood for the city in address labels
   if ('neighbourhood' !== record.layer &&
-    _borough &&
-    _borough.startsWith('Queens') &&
-    _neighbourhood
+    _.get(_borough, 'label', '').startsWith('Queens') &&
+    _.get(_neighbourhood, 'label')
   ) {
     return _neighbourhood;
-  } else if (_borough &&
-    _borough.startsWith('Manhattan')
-  ) {
+  } else if (_.get(_borough, 'label', '').startsWith('Manhattan')) {
     // return 'Manhattan, New York, for Manhattan neighbourhoods
     if (record.layer === 'neighbourhood') {
-      return `${_borough}, ${_default}`;
-    // return only locality for Manhattan venues/addresses
+      return { label: `${_borough.label}, ${_default.label}`, role };
+      // return only locality for Manhattan venues/addresses
     } else{
       return _default;
     }
@@ -174,8 +186,8 @@ function getNYCLocalValue(record) {
   }
 }
 
-function getUSALocalValue(record) {
-  const _default = getFirstProperty(['locality', 'localadmin', 'county'])(record);
+function getUSALocalValue(record, role = 'required') {
+  const _default = getFirstProperty(['locality', 'localadmin', 'county'], role)(record);
 
   // NYC is special for addresses
   if (isInNYC(record)) {
@@ -235,7 +247,9 @@ module.exports = {
   },
   'FRA': {
     'valueFunctions': {
+      'borough': getFirstProperty(['borough'], 'optional'),
       'local': getFirstProperty(['locality', 'localadmin']),
+      'regional': getFRARegionValue(),
       'country': getFRACountryValue()
     }
   },

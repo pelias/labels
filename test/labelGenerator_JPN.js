@@ -1,5 +1,5 @@
 const generator = require('../labelGenerator');
-
+const partsGenerator = require('../labelGenerator').partsGenerator;
 module.exports.tests = {};
 
 module.exports.tests.english_style_labels = function(test, common) {
@@ -19,6 +19,16 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'Tokyo Central Post Office, Chiyoda, Tokyo, 100-0005, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'Tokyo Central Post Office', role: 'required', layer: 'name' },
+        { label: 'Chiyoda', role: 'required', layer: 'borough' },
+        { label: 'Tokyo', role: 'required', layer: 'locality' },
+        { label: '100-0005', role: 'required', layer: 'postalcode' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -38,6 +48,16 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'7-9 丸の内二丁目, Marunochi 2 Chome, Chiyoda, Tokyo, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '7-9 丸の内二丁目', role: 'required', layer: 'name' },
+        { label: 'Marunochi 2 Chome', role: 'required', layer: 'neighbourhood' },
+        { label: 'Chiyoda', role: 'required', layer: 'borough'  },
+        { label: 'Tokyo', role: 'required', layer: 'locality' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -57,6 +77,14 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'331-8 中原, Shizuoka-shi, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '331-8 中原', role: 'required', layer: 'name' },
+        { label: 'Shizuoka-shi', role: 'required', layer: 'locality' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -75,6 +103,15 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'2-12 北二十四条西四丁目, Sapporo-shi, Hokkaido Prefecture, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '2-12 北二十四条西四丁目', role: 'required', layer: 'name' },
+        { label: 'Sapporo-shi', role: 'required', layer: 'locality' },
+        { label: 'Hokkaido Prefecture', role: 'required', layer: 'region' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -92,6 +129,15 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'1059-2 大崎, Ogori, Fukuoka Prefecture, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '1059-2 大崎', role: 'required', layer: 'name' },
+        { label: 'Ogori', role: 'required', layer: 'county' },
+        { label: 'Fukuoka Prefecture', role: 'required', layer: 'region' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 
@@ -109,6 +155,34 @@ module.exports.tests.english_style_labels = function(test, common) {
       continent: ['Asia'],
     };
     t.equal(generator(doc),'９丁目, Umegaoka, Setagaya, Tokyo, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: '９丁目', role: 'required', layer: 'name' },
+        { label: 'Umegaoka', role: 'required', layer: 'locality' },
+        { label: 'Setagaya', role: 'required', layer: 'county' },
+        { label: 'Tokyo', role: 'required', layer: 'region' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
+    t.end();
+  });
+
+  test('support name aliases', function(t) {
+    const doc = {
+      name: { default: ['name1', 'name2'] },
+      layer: 'venue',
+      country: ['Japan'],
+      country_a: ['JPN'],
+    };
+    t.equal(generator(doc),'name1, Japan');
+    t.deepEqual(partsGenerator(doc), {
+      labelParts: [
+        { label: 'name1', role: 'required', layer: 'name' },
+        { label: 'Japan', role: 'required', layer: 'country' },
+      ],
+      separator: ', ',
+    });
     t.end();
   });
 };
