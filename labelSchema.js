@@ -239,6 +239,12 @@ module.exports = {
       'country': getFRACountryValue()
     }
   },
+  'MCO': {
+    'valueFunctions': {
+      'local': getFirstProperty(['neighbourhood']),
+      'country': getFirstProperty(['country'])
+    }
+  },
   'ITA': {
     'valueFunctions': {
       'local': getFirstProperty(['locality', 'localadmin']),
