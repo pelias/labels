@@ -9,7 +9,7 @@ module.exports.tests.interface = function(test, common) {
   });
 };
 
-module.exports.tests.united_kingdom = function(test, common) {
+module.exports.tests.france = function(test, common) {
   test('venue', function(t) {
     var doc = {
       'name': { 'default': 'venue name' },
@@ -375,6 +375,37 @@ module.exports.tests.united_kingdom = function(test, common) {
       'country': ['France']
     };
     t.equal(generator(doc),'locality name, dependency name');
+    t.end();
+  });
+
+  test('postalcode with locality', function(t) {
+    var doc = {
+      'name': { 'default': '69001' },
+      'layer': 'postalcode',
+      'locality': ['Lyon'],
+      'county': ['Metropolitan Lyon'],
+      'macrocounty': ['Lyon'],
+      'region': ['Rhône'],
+      'macroregion': ['Auvergne-Rhone-Alpes'],
+      'country_a': ['FRA'],
+      'country': ['France']
+    };
+    t.equal(generator(doc),'69001, Lyon, France');
+    t.end();
+  });
+
+  test('postalcode without locality or localadmin', function(t) {
+    var doc = {
+      'name': { 'default': '13080' },
+      'layer': 'postalcode',
+      'county': ['Aix-en-Provence Canton'],
+      'macrocounty': ['Aix-En-Provence'],
+      'region': ['Bouches-du-Rhône'],
+      'macroregion': ['Provence-Alpes-Cote d\'Azur'],
+      'country_a': ['FRA'],
+      'country': ['France']
+    };
+    t.equal(generator(doc),'13080, Aix-en-Provence Canton, France');
     t.end();
   });
 

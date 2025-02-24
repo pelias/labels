@@ -1,11 +1,9 @@
-var _ = require('lodash');
+const _ = require('lodash');
 const removeAccents = require('remove-accents');
 
 // lowercase characters and remove some punctuation
 function normalizeString(str){
-  if (!str) {
-    return '';
-  }
+  if (!str) { return ''; }
   return removeAccents(str.toLowerCase().split(/[ ,-]+/).join(' '));
 }
 
@@ -21,11 +19,8 @@ function getFirstProperty(fields) {
       if (!_.isEmpty(fieldValue)) {
         return fieldValue[0];
       }
-
     }
-
   };
-
 }
 
 // this function is exclusively used for figuring out which field to use for states/provinces
@@ -235,7 +230,7 @@ module.exports = {
   },
   'FRA': {
     'valueFunctions': {
-      'local': getFirstProperty(['locality', 'localadmin']),
+      'local': getFirstProperty(['locality', 'localadmin', 'county', 'macrocounty']),
       'country': getFRACountryValue()
     }
   },
